@@ -3,9 +3,16 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
 const routes: Array<RouteRecordRaw> = [
     {
-        path: '/test',
-        name: 'test',
-        component: () => import('@/views/test.vue'),
+        path: '/',
+        name: 'menu',
+        component: () => import('@/views/Menu/TopBar.vue'),
+        children: [
+            {
+                path: '/home',
+                name: 'home',
+                component: () => import('@/views/Home/HomePage.vue'),
+            },
+        ]
     },
 ];
 
