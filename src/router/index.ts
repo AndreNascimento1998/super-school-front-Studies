@@ -3,12 +3,12 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
 const routes: Array<RouteRecordRaw> = [
     {
-        path: '/',
+        path: '/menu',
         name: 'menu',
         component: () => import('@/views/Menu/MenuPage.vue'),
         children: [
             {
-                path: '/home',
+                path: '/',
                 name: 'home',
                 component: () => import('@/views/Home/HomePage.vue'),
             },
