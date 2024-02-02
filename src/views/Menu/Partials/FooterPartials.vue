@@ -5,7 +5,7 @@
                 <div class="text-center title-courses">Melhores cursos</div>
                 <div class="d-flex gap-2 align-items-center">
                     <BrazilFlag />
-                    <span class="language-desc">Português do Brasil</span>
+                    <span class="language-desc justify-content-center">Português do Brasil</span>
                 </div>
             </div>
             <div class="d-flex gap-3">
@@ -14,28 +14,31 @@
                 <YoutubeIcon />
                 <LinkedinIcon />
             </div>
-            <LineSeparatorIcon  />
+            <LineSeparatorIcon class="d-block d-lg-none" />
+            <LineDesktopIcon class="d-none d-lg-block" />
         </div>
-        <div class="d-flex flex-column align-items-center gap-2 mt-3 content-default">
-            <span class="content-title">Plataforma</span>
-            <span>Sobre</span>
-            <span>Cursos</span>
-            <span>Marca</span>
-            <span>Sala de imprensa</span>
-        </div>
-        <div class="d-flex flex-column align-items-center gap-2 mt-4">
-            <span class="content-title">Política de privacidade</span>
-            <span>Termos</span>
-            <span>Privacidade</span>
-            <span>Cookies </span>
-            <span>Moderação</span>
+        <div class="row">
+            <div class="d-flex col-12 col-md-6 flex-column align-items-center gap-2 mt-3 mt-md-2 content-default">
+                <span class="content-title">Plataforma</span>
+                <span>Sobre</span>
+                <span>Cursos</span>
+                <span>Marca</span>
+                <span>Sala de imprensa</span>
+            </div>
+            <div class="d-flex flex-column col-12 col-md-6  align-items-center gap-2 mt-4 mt-md-2">
+                <span class="content-title">Política de privacidade</span>
+                <span>Termos</span>
+                <span>Privacidade</span>
+                <span>Cookies </span>
+                <span>Moderação</span>
+            </div>
         </div>
     </div>
     <div class="text-center py-4">Copyright © 2006 - 2024</div>
 </template>
 
 <script setup lang="ts">
-import {BrazilFlag, FacebookIcon, YoutubeIcon, LinkedinIcon, InstagramIcon, LineSeparatorIcon} from "@/assets/icons";
+import {BrazilFlag, FacebookIcon, YoutubeIcon, LinkedinIcon, InstagramIcon, LineSeparatorIcon, LineDesktopIcon} from "@/assets/icons";
 </script>
 
 <style scoped lang="scss">
