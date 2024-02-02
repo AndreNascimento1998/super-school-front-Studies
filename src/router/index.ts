@@ -5,7 +5,7 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
         name: 'menu',
-        component: () => import('@/views/Menu/TopBar.vue'),
+        component: () => import('@/views/Menu/MenuPage.vue'),
         children: [
             {
                 path: '/home',
