@@ -1,7 +1,7 @@
 <template>
     <CoursesOverviewPartials />
     <FormPartials />
-    <ContentAboutUs />
+    <ContentAboutUs class="mt-5" />
 </template>
 <script setup lang="ts">
 import CoursesOverviewPartials from "@/views/Home/Partials/CoursesOverviewPartials.vue";
