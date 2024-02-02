@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid background-app">
+    <div class="background-app">
         <router-view />
     </div>
 
