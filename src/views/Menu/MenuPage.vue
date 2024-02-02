@@ -1,5 +1,5 @@
 <template>
-    <TopBar/>
+    <TopBar class="mb-4"/>
     <router-view />
 </template>
 
