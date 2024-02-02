@@ -1,8 +1,10 @@
 <template>
-    <TopBar class="mb-4"/>
+    <TopBarPartials class="mb-4"/>
     <router-view />
+    <FooterPartials/>
 </template>
 
 <script setup lang="ts">
-import TopBar from "@/views/Menu/Partials/TopBar.vue";
+import TopBarPartials from "@/views/Menu/Partials/TopBarPartials.vue";
+import FooterPartials from "@/views/Menu/Partials/FooterPartials.vue";
 </script>
