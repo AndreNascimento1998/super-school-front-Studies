@@ -1,7 +1,7 @@
 <template>
-    <div class="px-2">
+    <div class="container-fluid">
         <div>
-            <span>Modalidades:</span>
+            <span style="font-weight: bold">Modalidades:</span>
             <select class="form-select border-success" aria-label="Default select example">
                 <option
                     v-for="item in options"
@@ -13,7 +13,7 @@
             </select>
         </div>
         <div class="my-4">
-            <span>Cursos:</span>
+            <span style="font-weight: bold">Cursos:</span>
             <select class="form-select border-success" aria-label="Default select example">
                 <option
                     v-for="item in options"
@@ -25,7 +25,7 @@
             </select>
         </div>
         <div class="d-grid">
-            <button class="btn btn-success" type="button">Button</button>
+            <button class="btn btn-success" type="button">Buscar</button>
         </div>
     </div>
 </template>
