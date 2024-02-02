@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div>
                 <a class="navbar-brand" href="#">
-                    <Logo />
+                    <LogoIcon />
                 </a>
             </div>
             <div class="d-flex gap-2">
@@ -18,6 +18,6 @@
     </nav>
 </template>
 <script setup lang="ts">
-import { Logo } from '@/assets/icons'
+import { LogoIcon } from '@/assets/icons'
 
 </script>
