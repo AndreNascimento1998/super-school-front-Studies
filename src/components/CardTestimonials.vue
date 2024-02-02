@@ -1,13 +1,9 @@
 <template>
-    <div class="d-flex justify-content-around my-4">
+    <div class="d-flex d-flex flex-wrap gap-2 justify-content-around my-4">
         <div
             v-for="item in props.content"
             :key="item.id"
-            class="card p-2"
-            :style="{
-                width: props.width,
-                maxHeight: props.maxHeight
-            }"
+            class="card p-2 hidden-card"
             style="width: 22rem;"
         >
             <div class="d-flex align-items-center justify-content-between mb-4">
@@ -40,12 +36,17 @@ const props = defineProps({
         required: true
     }
 })
-
 </script>
 
 <style scoped lang="scss">
 .card-item {
     max-width: 2rem;
     object-fit: cover;
+}
+
+@media (max-width: 578px) {
+    .hidden-card:nth-child(n + 2) {
+        display: none;
+    }
 }
 </style>
