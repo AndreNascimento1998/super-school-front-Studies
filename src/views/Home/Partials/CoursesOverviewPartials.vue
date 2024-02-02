@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container-fluid">
         <div>
             <CarouselComponent :slide="promotionSlide" />
         </div>
@@ -19,12 +19,12 @@
 <script setup lang="ts">
 import CarouselComponent from "@/components/CarouselComponent.vue";
 import {Ref, ref} from "vue";
-import firstSlide from "@/assets/carousel/firstSlide.png";
-import secondSlide from "@/assets/carousel/secondSlide.png";
-import thirdSlide from "@/assets/carousel/thirdSlide.png";
-import graduation from '@/assets/training modalities/graduation.png'
-import postGraduation from '@/assets/training modalities/post-graduation.png'
-import techinicalCourses from '@/assets/training modalities/techinical-courses.png'
+import firstSlide from "@/assets/images/carousel/firstSlide.png";
+import secondSlide from "@/assets/images/carousel/secondSlide.png";
+import thirdSlide from "@/assets/images/carousel/thirdSlide.png";
+import graduation from '@/assets/images/trainingModalities/graduation.png'
+import postGraduation from '@/assets/images/trainingModalities/post-graduation.png'
+import techinicalCourses from '@/assets/images/trainingModalities/techinical-courses.png'
 import CardPromotion from "@/components/CardPromotion.vue";
 import {CardOverview} from "@/model/Interfaces/CardOverview.ts";
 
