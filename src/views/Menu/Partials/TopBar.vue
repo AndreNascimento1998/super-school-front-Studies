@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar py-4 px-2">
+    <nav class="navbar py-4">
         <div class="container-fluid">
             <div>
                 <a class="navbar-brand" href="#">
