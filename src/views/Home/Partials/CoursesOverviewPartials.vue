@@ -11,11 +11,11 @@
                 v-for="image in modalities"
                 :key="image.type"
                 @click="handleClick(image.id)"
-                class="card card-modalities"
+                class="card card-modalities align-items-center py-4"
                 :class="{ 'selected-card': selectedCard === image.id }"
-                style="width: 7.5rem"
+                style="width: 7.5rem; max-height: 8rem"
             >
-                <img class="card-img-top" :src="image.type" alt="Modalidades">
+                <img class="card-img-top w-50" :src="image.type" alt="Modalidades">
                 <div class="card-body">
                     <p style="font-size: 12px" class="card-text text-center ">{{ image.text }}</p>
                 </div>
