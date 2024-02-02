@@ -12,6 +12,7 @@ import FacebookIcon from "@/assets/icons/facebook.vue";
 import YoutubeIcon from "@/assets/icons/youtube.vue";
 import LinkedinIcon from "@/assets/icons/linkedin.vue";
 import LineSeparatorIcon from "@/assets/icons/lineSeparator.vue";
+import LineDesktopIcon from "@/assets/icons/lineDesktop.vue";
 export {
     LogoIcon,
     LineIcon,
@@ -26,5 +27,6 @@ export {
     FacebookIcon,
     YoutubeIcon,
     LinkedinIcon,
-    LineSeparatorIcon
+    LineSeparatorIcon,
+    LineDesktopIcon
 }

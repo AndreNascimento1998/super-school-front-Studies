@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex justify-content-around my-4">
+    <div class="d-flex justify-content-around my-4 flex-wrap gap-2">
         <div
             v-for="item in props.content"
             :key="item.type"
@@ -9,10 +9,6 @@
                 'selected-card': selected && selectedCard === item.id,
                 'py-4': props.paddingY,
                 'cursor-pointer': selected
-            }"
-            :style="{
-                width: props.width,
-                maxHeight: props.maxHeight
             }"
         >
             <img v-if="item.src" class="card-img-top w-50" :src="item.src" alt="Modalidades">
@@ -83,6 +79,8 @@ const handleClick = (cardId: number) => {
     cursor: pointer;
 }
 .card-modalities {
+    width: 7rem;
+    max-width: 9rem;
     background-color: $background-card;
     &__title {
         font-size: 16px;
@@ -105,5 +103,12 @@ const handleClick = (cardId: number) => {
 .selected-card {
     border-color: black;
     border-width: 3px;
+}
+
+@media (min-width: 1024px) {
+    .card-modalities {
+        width: 10rem;
+        max-width: 12rem;
+    }
 }
 </style>
