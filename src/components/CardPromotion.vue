@@ -2,8 +2,8 @@
     <div class="d-flex justify-content-around my-4 flex-wrap gap-2">
         <div
             v-for="item in props.content"
-            :key="item.type"
-            @click="handleClick(item.id)"
+            :key="item.id"
+            @click="() => handleClick(item)"
             class="card card-modalities align-items-center"
             :class="{
                 'selected-card': selected && selectedCard === item.id,
@@ -37,12 +37,17 @@
 <script setup lang="ts">
 
 import {ref} from "vue";
+import {CardOverview} from "@/model/Interfaces/CardOverview.ts";
 
 let selectedCard = ref(1)
 
+const emits = defineEmits(
+    ['click-event']
+)
+
 const props = defineProps({
     content: {
-        type: Array<any>,
+        type: Array<CardOverview>,
         default: [],
         required: true
     },
@@ -65,13 +70,19 @@ const props = defineProps({
         type: Boolean,
         default: false,
         required: false
+    },
+    returnObject: {
+        type: Boolean,
+        default: true,
+        required: false
     }
 })
 
-const handleClick = (cardId: number) => {
-    selectedCard.value = cardId
-}
+function handleClick (item: CardOverview) {
+    selectedCard.value = item.id
+    props.returnObject ? emits('click-event', item) : emits('click-event', item.id)
 
+}
 </script>
 
 <style scoped lang="scss">
