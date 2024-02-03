@@ -1,0 +1,54 @@
+<template>
+    <div class="mb-4">
+        <div class="my-4">
+            <span class="title">2° Etapa Cadastro</span>
+        </div>
+        <div>
+            <InputText v-model="checkoutStore.name" label="CEP:" placeholder="Digite o CEP"/>
+            <InputText v-model="checkoutStore.name" label="CPF:" placeholder="000.000.000-00"/>
+            <InputText v-model="checkoutStore.name" label="Data de nascimento:" placeholder="__/__/____"/>
+        </div>
+        <div class="d-grid gap-3">
+            <div class="d-grid col-12 col-md-4 h-md-25 align-self-md-end">
+                <button @click="handleClick" class="btn btn-success" type="button">
+                    Avançar
+                </button>
+            </div>
+            <div class="d-grid col-12 col-md-4 h-md-25 align-self-md-end">
+                <button @click="handleClickReturn" class="btn btn-success" type="button">
+                    Voltar
+                </button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script setup lang="ts">
+import InputText from "@/components/InputText.vue";
+import {useCheckoutStore} from "@/stores/CheckoutStore.ts";
+
+const emits = defineEmits(
+    ['click-event', 'click-return']
+)
+
+const checkoutStore = useCheckoutStore()
+
+function handleClickReturn() {
+    emits('click-return', 1)
+}
+
+function handleClick() {
+    emits('click-event', 3)
+}
+</script>
+
+<style scoped lang="scss">
+.title {
+    color: #404040;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 155.99%; /* 31.198px */
+    letter-spacing: -0.6px;
+}
+</style>
