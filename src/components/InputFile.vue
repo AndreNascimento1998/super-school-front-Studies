@@ -24,14 +24,13 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue"
+import {ref, watch} from "vue"
 import {OpenFileIcon} from "@/assets/icons";
 
 const emtis = defineEmits(
     ['file-changed']
 )
 
-const selectedFile = ref(null)
 const selectedFileName = ref('Click no ícone para enviar seu documento')
 
 const props = defineProps({
@@ -39,8 +38,18 @@ const props = defineProps({
         type: String,
         default: '',
         required: true
+    },
+    modelValue: {
+        type: String,
+        default: ""
     }
 })
+
+const selectedFile = ref(props.modelValue)
+
+watch(() => props.modelValue, (newValue) => {
+    selectedFile.value = newValue;
+});
 
 function openFileInput() {
     const fileInput = document.getElementById('inputGroupFile');

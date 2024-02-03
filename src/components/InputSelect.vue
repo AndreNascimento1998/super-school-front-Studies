@@ -14,12 +14,11 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
+import {ref, watch} from "vue";
 
 const emits = defineEmits(
     ['update:modelValue']
 )
-const value = ref(null)
 
 const props = defineProps({
     items: {
@@ -31,8 +30,18 @@ const props = defineProps({
         type: String,
         default: '',
         required: true
+    },
+    modelValue: {
+        type: String,
+        default: ''
     }
 })
+
+const value = ref(props.modelValue)
+
+watch(() => props.modelValue, (newValue) => {
+    value.value = newValue;
+});
 
 function changeSelect() {
     emits('update:modelValue', value.value)
