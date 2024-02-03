@@ -4,6 +4,7 @@
             <div class="container-fluid col-12 col-lg-5 col-xl-4">
                 <span class="content__font-title">Descontos em cursos de graduação: </span>
                 <p class="font-desc">Modalidade: EAD </p>
+                <p class="font-desc">Cursos: Direito </p>
                 <CardPromotion
                     :content="discountGraduation"
                     width="11rem"
@@ -12,6 +13,7 @@
             <div class="my-5 my-lg-0 container-fluid col-12 col-lg-5 col-xl-4">
                 <span class="content__font-title">Descontos em cursos de pós-graduação: </span>
                 <p class="font-desc">Modalidade: EAD </p>
+                <p class="font-desc">Cursos: História </p>
                 <CardPromotion
                     :content="discountGraduation"
                     width="11rem"
