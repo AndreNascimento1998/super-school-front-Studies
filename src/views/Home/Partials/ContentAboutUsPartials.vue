@@ -21,7 +21,7 @@
                 <div class="col-12 text-center">
                     <span class="content__title-about-us">Como funciona</span>
                 </div>
-                <div class="col-12 d-flex flex-column justify-content-md-center flex-md-row gap-3 content__modalities">
+                <div class="col-12 d-flex flex-column justify-content-md-between flex-md-row gap-3 content__modalities">
                     <div class="d-flex flex-md-column align-items-center gap-2">
                         <SearchIcon />
                         <span>Busque a modalidade</span>
