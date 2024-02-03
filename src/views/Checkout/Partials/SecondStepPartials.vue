@@ -6,13 +6,13 @@
         <form>
             <div class="row">
                 <div class="col-12 col-lg-12">
-                    <InputText v-model="checkoutStore.name" label="CEP:" placeholder="Digite o CEP"/>
+                    <InputText v-model="checkoutStore.cep" label="CEP:" placeholder="Digite o CEP"/>
                 </div>
                 <div class="col-12 col-lg-6">
-                    <InputText v-model="checkoutStore.name" label="CPF:" placeholder="000.000.000-00"/>
+                    <InputText v-model="checkoutStore.cpf" label="CPF:" placeholder="000.000.000-00"/>
                 </div>
                 <div class="col-12 col-lg-6">
-                    <InputText v-model="checkoutStore.name" label="Data de nascimento:" placeholder="__/__/____"/>
+                    <InputText v-model="checkoutStore.dateBirth" label="Data de nascimento:" placeholder="__/__/____"/>
                 </div>
             </div>
         </form>

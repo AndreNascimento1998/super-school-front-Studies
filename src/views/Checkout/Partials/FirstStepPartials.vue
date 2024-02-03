@@ -9,10 +9,10 @@
                     <InputText v-model="checkoutStore.name" label="Nome:" placeholder="Digite seu nome"/>
                 </div>
                 <div class="col-12 col-lg-6">
-                    <InputText v-model="checkoutStore.name" label="E-mail:" placeholder="Ex.: andre@ug.com"/>
+                    <InputText v-model="checkoutStore.email" label="E-mail:" placeholder="Ex.: andre@ug.com"/>
                 </div>
                 <div class="col-12 col-lg-6">
-                    <InputText v-model="checkoutStore.name" label="Phone:" placeholder="Digite seu telefone"/>
+                    <InputText v-model="checkoutStore.phone" label="Phone:" placeholder="Digite seu telefone"/>
                 </div>
             </div>
             <div class="d-grid d-md-flex flex-md-row-reverse  gap-3">
