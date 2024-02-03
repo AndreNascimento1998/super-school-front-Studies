@@ -58,7 +58,6 @@ function nextSteps(step: number) {
 }
 
 function backSteps(step: number) {
-    console.log(step)
     stepSelected.value = step
 }
 
