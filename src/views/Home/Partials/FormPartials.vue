@@ -2,28 +2,10 @@
     <div class="container-fluid ">
         <div class="row">
             <div class="col-12 col-md-4">
-                <span style="font-weight: bold">Modalidades:</span>
-                <select class="form-select border-success" aria-label="Default select example">
-                    <option
-                        v-for="item in options"
-                        :key="item.value"
-                        :value="item.value"
-                    >
-                        {{ item.text }}
-                    </option>
-                </select>
+               <InputSelect label="Modalidades" :items="options" />
             </div>
             <div class="my-4 my-md-0 col-12 col-md-4">
-                <span style="font-weight: bold">Cursos:</span>
-                <select class="form-select border-success" aria-label="Default select example">
-                    <option
-                        v-for="item in options"
-                        :key="item.value"
-                        :value="item.value"
-                    >
-                        {{ item.text }}
-                    </option>
-                </select>
+                <InputSelect label="Cursos" :items="options" />
             </div>
             <div class="d-grid col-12 col-md-4 h-md-25 align-self-md-end">
                 <button class="btn btn-success" type="button">Buscar</button>
@@ -34,6 +16,7 @@
 <script setup lang="ts">
 
 import {ref} from "vue";
+import InputSelect from "@/components/InputSelect.vue";
 
 const options = ref([
     {
