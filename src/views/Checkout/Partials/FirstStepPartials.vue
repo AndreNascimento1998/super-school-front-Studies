@@ -4,10 +4,18 @@
             <span class="title">1° Etapa Cadastro</span>
         </div>
         <form>
-            <InputText v-model="checkoutStore.name" label="Nome:" placeholder="Digite seu nome"/>
-            <InputText v-model="checkoutStore.name" label="E-mail:" placeholder="Ex.: andre@ug.com"/>
-            <InputText v-model="checkoutStore.name" label="Phone:" placeholder="Digite seu telefone"/>
-            <div class="d-grid gap-3">
+            <div class="row">
+                <div class="col-12 col-lg-12">
+                    <InputText v-model="checkoutStore.name" label="Nome:" placeholder="Digite seu nome"/>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <InputText v-model="checkoutStore.name" label="E-mail:" placeholder="Ex.: andre@ug.com"/>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <InputText v-model="checkoutStore.name" label="Phone:" placeholder="Digite seu telefone"/>
+                </div>
+            </div>
+            <div class="d-grid d-md-flex flex-md-row-reverse  gap-3">
                 <div class="d-grid col-12 col-md-4 h-md-25 align-self-md-end">
                     <button @click="handleClick" class="btn btn-success" type="button">
                         Avançar

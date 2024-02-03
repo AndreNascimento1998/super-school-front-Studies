@@ -3,7 +3,7 @@
         <div class="my-4">
             <span class="title">3° Etapa Cadastro</span>
         </div>
-        <div class="d-flex ">
+        <div class="d-flex justify-content-center">
             <div class="">
                 <InputFile
                     title="CNH"
@@ -17,10 +17,10 @@
                 />
             </div>
         </div>
-        <div class="d-grid gap-3 mt-4">
+        <div class="d-grid d-md-flex flex-md-row-reverse justify-content-md-between gap-3 mt-4">
             <div class="d-grid col-12 col-md-4 h-md-25 align-self-md-end">
                 <button @click="registerMatriculation" class="btn btn-success" type="button">
-                    Avançar
+                    Confirmar Pagamento
                 </button>
             </div>
             <div class="d-grid col-12 col-md-4 h-md-25 align-self-md-end">

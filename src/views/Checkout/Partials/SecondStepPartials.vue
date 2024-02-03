@@ -3,12 +3,20 @@
         <div class="my-4">
             <span class="title">2° Etapa Cadastro</span>
         </div>
-        <div>
-            <InputText v-model="checkoutStore.name" label="CEP:" placeholder="Digite o CEP"/>
-            <InputText v-model="checkoutStore.name" label="CPF:" placeholder="000.000.000-00"/>
-            <InputText v-model="checkoutStore.name" label="Data de nascimento:" placeholder="__/__/____"/>
-        </div>
-        <div class="d-grid gap-3">
+        <form>
+            <div class="row">
+                <div class="col-12 col-lg-12">
+                    <InputText v-model="checkoutStore.name" label="CEP:" placeholder="Digite o CEP"/>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <InputText v-model="checkoutStore.name" label="CPF:" placeholder="000.000.000-00"/>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <InputText v-model="checkoutStore.name" label="Data de nascimento:" placeholder="__/__/____"/>
+                </div>
+            </div>
+        </form>
+        <div class="d-grid d-md-flex flex-md-row-reverse gap-3">
             <div class="d-grid col-12 col-md-4 h-md-25 align-self-md-end">
                 <button @click="handleClick" class="btn btn-success" type="button">
                     Avançar
