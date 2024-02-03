@@ -27,6 +27,9 @@ import thirdSlide from "@/assets/images/carousel/thirdSlide.png";
 import graduation from '@/assets/images/trainingModalities/graduation.png'
 import postGraduation from '@/assets/images/trainingModalities/post-graduation.png'
 import techinicalCourses from '@/assets/images/trainingModalities/techinical-courses.png'
+import freeCourses from '@/assets/images/trainingModalities/free-courses.png'
+import languages from '@/assets/images/trainingModalities/languages.png'
+import preparationCourses from '@/assets/images/trainingModalities/preparation-courses.png'
 import CardPromotion from "@/components/CardPromotion.vue";
 import {CardOverview} from "@/model/Interfaces/CardOverview.ts";
 
@@ -48,18 +51,18 @@ const modalities: Ref<Array<CardOverview>> = ref([
     },
     {
         id: 4,
-        src: techinicalCourses,
-        desc: "Cursos técnicos"
+        src: freeCourses,
+        desc: "Cursos livres"
     },
     {
         id: 5,
-        src: techinicalCourses,
-        desc: "Cursos técnicos"
+        src: languages,
+        desc: "Idiomas"
     },
     {
         id: 6,
-        src: techinicalCourses,
-        desc: "Cursos técnicos"
+        src: preparationCourses,
+        desc: "Cursos de preparação"
     },
 ])
 const promotionSlide = ref([
