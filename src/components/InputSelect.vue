@@ -1,13 +1,18 @@
 <template>
     <div>
         <span style="font-weight: bold">{{ props.label }}:</span>
-        <select v-model="value" @change="changeSelect" class="form-select border-success" aria-label="Default select example">
+        <select
+            v-model="value" @change="changeSelect"
+            class="form-select border-success"
+            :disabled="disabled"
+            aria-label="Default select example"
+        >
             <option
                 v-for="item in props.items"
                 :key="item.value"
                 :value="item"
             >
-                {{ item.text }}
+                {{ item.name }}
             </option>
         </select>
     </div>
@@ -32,8 +37,13 @@ const props = defineProps({
         required: true
     },
     modelValue: {
-        type: String,
-        default: ''
+        type: Object,
+        default: {}
+    },
+    disabled: {
+        type: Boolean,
+        default: false,
+        required: false
     }
 })
 
