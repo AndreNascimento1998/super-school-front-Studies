@@ -3,9 +3,9 @@
         <div class="d-flex flex-column align-items-center gap-3">
             <div class="d-flex flex-column gap-1">
                 <div class="text-center title-courses">Melhores cursos</div>
-                <div class="d-flex gap-2 align-items-center">
+                <div class="d-flex gap-2 align-items-center justify-content-center">
                     <BrazilFlag />
-                    <span class="language-desc justify-content-center">Português do Brasil</span>
+                    <span class="language-desc">Português do Brasil</span>
                 </div>
             </div>
             <div class="d-flex gap-3">

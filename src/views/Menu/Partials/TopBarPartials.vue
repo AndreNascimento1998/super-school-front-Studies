@@ -7,11 +7,18 @@
                 </a>
             </div>
             <div class="d-flex gap-2">
-                <div>
-                    <button type="button" class="btn btn-outline-success">Entrar</button>
+                <div v-if="!userLogged.logged">
+                    <button @click="singIn()" type="button" class="btn btn-outline-success">Entrar</button>
                 </div>
-                <div>
-                    <button type="button" class="btn btn-success">Cadastrar-se</button>
+                <div v-if="userLogged.logged">
+                    <span
+                        style="font-size: 18px;
+                        font-weight: bolder;
+                        font-style: italic"
+                    >
+                        {{ userLogged.name }}
+                        {{ userLogged.lastName }}
+                    </span>
                 </div>
             </div>
         </div>
@@ -19,6 +26,17 @@
 </template>
 <script setup lang="ts">
 import { LogoIcon } from '@/assets/icons'
+import {userAuthStore} from "@/stores/authStore.ts";
+import {computed, ComputedRef} from "vue";
+import {User} from "@/model/Interfaces/User.ts";
+
+const authStore = userAuthStore()
+
+const userLogged: ComputedRef<User> = computed(() => authStore.user)
+
+function singIn() {
+    authStore.authStore()
+}
 </script>
 
 <style scoped lang="scss">
