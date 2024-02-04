@@ -34,6 +34,28 @@
             </div>
         </div>
     </div>
+    <div class="row content mt-5 container-fluid">
+        <div class="container-fluid col-12 col-lg-5 col-xl-4">
+            <span class="content__font-title">Descontos em cursos de graduação: </span>
+            <p class="content_font-desc">Modalidade: EAD </p>
+            <p class="content_font-desc">Cursos: Direito </p>
+            <CardPromotion
+                :content="discountGraduation"
+                width="11rem"
+                cursor-pointer
+            />
+        </div>
+        <div class="my-5 my-lg-0 container-fluid col-12 col-lg-5 col-xl-4">
+            <span class="content__font-title">Descontos em cursos de pós-graduação: </span>
+            <p class="content__font-desc">Modalidade: EAD </p>
+            <p class="content__font-desc">Cursos: História </p>
+            <CardPromotion
+                :content="discountGraduation"
+                width="11rem"
+                cursor-pointer
+            />
+        </div>
+    </div>
 </template>
 <script setup lang="ts">
 
@@ -90,6 +112,40 @@ const modalities: Ref<Array<CardOverview>> = ref([
         desc: "Cursos de preparação"
     },
 ])
+const discountGraduation: Ref<Array<CardOverview>> = ref([
+    {
+        id: 1,
+        title:"Direito",
+        descOpt: "Desconto de ",
+        discount: "20%",
+        desc: "A partir de ",
+        price: "R$ 490,00"
+    },
+    {
+        id: 2,
+        title:"História",
+        descOpt: "Desconto de ",
+        discount: "80%",
+        desc: "A partir de ",
+        price: "R$ 120,00"
+    },
+    {
+        id: 3,
+        title:"Direito",
+        descOpt: "Desconto de ",
+        discount: "20%",
+        desc: "A partir de ",
+        price: "R$ 490,00"
+    },
+    {
+        id: 4,
+        title:"História",
+        descOpt: "Desconto de ",
+        discount: "80%",
+        desc: "A partir de ",
+        price: "R$ 120,00"
+    }
+])
 
 const modalityOpt = computed(() => modalityStore.modalityOptions )
 const courseOtp = computed(() => courseStore.courseOptions )
@@ -108,6 +164,16 @@ function handleClick(item: CardOverview) {
 </script>
 
 <style scoped lang="scss">
+.content {
+    &__font-title {
+        color: $primary-color;
+    }
+
+    &__font-desc {
+        font-size: 14px;
+    }
+}
+
 .font-default {
     color: $primary-color;
     font-weight: 700;

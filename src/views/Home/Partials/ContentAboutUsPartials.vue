@@ -1,24 +1,6 @@
 <template>
     <div class="content">
         <div class="row container-fluid">
-            <div class="container-fluid col-12 col-lg-5 col-xl-4">
-                <span class="content__font-title">Descontos em cursos de graduação: </span>
-                <p class="font-desc">Modalidade: EAD </p>
-                <p class="font-desc">Cursos: Direito </p>
-                <CardPromotion
-                    :content="discountGraduation"
-                    width="11rem"
-                />
-            </div>
-            <div class="my-5 my-lg-0 container-fluid col-12 col-lg-5 col-xl-4">
-                <span class="content__font-title">Descontos em cursos de pós-graduação: </span>
-                <p class="font-desc">Modalidade: EAD </p>
-                <p class="font-desc">Cursos: História </p>
-                <CardPromotion
-                    :content="discountGraduation"
-                    width="11rem"
-                />
-            </div>
             <div class="row-cols-2 d-grid mb-5 container-fluid gap-3">
                 <div class="col-12 text-center">
                     <span class="content__title-about-us">Como funciona</span>
@@ -66,49 +48,13 @@
 </template>
 
 <script setup lang="ts">
-import CardPromotion from "@/components/CardPromotion.vue";
 import {ref, Ref} from "vue";
-import {CardOverview} from "@/model/Interfaces/CardOverview.ts";
 import {FilterIcon, RegisterIcon, RegistrationIcon, StudiesIcon, SearchIcon} from "@/assets/icons";
 import imageAboutUs from"@/assets/images/secctionAboutUs/imageContentAboutUs.png"
 import CardTestimonials from "@/components/CardTestimonials.vue";
 import imageTestemonial from "@/assets/images/cardAaboutUs/userTestemonial.png"
 import {CardTestemonial} from "@/model/Interfaces/CardTestemonial.ts";
 
-const discountGraduation: Ref<Array<CardOverview>> = ref([
-    {
-        id: 1,
-        title:"Direito",
-        descOpt: "Desconto de ",
-        discount: "20%",
-        desc: "A partir de ",
-        price: "R$ 490,00"
-    },
-    {
-        id: 2,
-        title:"História",
-        descOpt: "Desconto de ",
-        discount: "80%",
-        desc: "A partir de ",
-        price: "R$ 120,00"
-    },
-    {
-        id: 3,
-        title:"Direito",
-        descOpt: "Desconto de ",
-        discount: "20%",
-        desc: "A partir de ",
-        price: "R$ 490,00"
-    },
-    {
-        id: 4,
-        title:"História",
-        descOpt: "Desconto de ",
-        discount: "80%",
-        desc: "A partir de ",
-        price: "R$ 120,00"
-    }
-])
 const aboutUs: string = "Explore o vasto universo educacional oferecido pela plataforma que se destaca ao disponibilizar uma ampla gama de cursos para todos os perfis de aprendizes. Desde cursos de graduação e pós-graduação até opções flexíveis como cursos livres, preparatórios e técnicos. </br></br> Desfrute dos melhores descontos e escolha entre a conveniência do ensino a distância (EAD) ou a experiência presencial. "
 const userTestemonial: Ref<Array<CardTestemonial>> = ref([
     {
@@ -142,12 +88,6 @@ const userTestemonial: Ref<Array<CardTestemonial>> = ref([
 
 <style scoped lang="scss">
 .content {
-    &__font-title {
-        color: $primary-color;
-    }
-    &__font-desc {
-        font-size: 14px;
-    }
     &__title-about-us {
         font-size: 20px;
         font-weight: bolder;
