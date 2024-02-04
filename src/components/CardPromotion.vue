@@ -8,7 +8,8 @@
             :class="{
                 'selected-card': selected && selectedCard === item.id,
                 'py-4': props.paddingY,
-                'cursor-pointer': selected
+                'cursor-pointer': cursorPointer,
+
             }"
         >
             <img v-if="item.src" class="card-img-top w-50" :src="item.src" alt="Modalidades">
@@ -75,6 +76,11 @@ const props = defineProps({
         type: Boolean,
         default: true,
         required: false
+    },
+    cursorPointer: {
+        type: Boolean,
+        default: false,
+        required: false
     }
 })
 
@@ -113,7 +119,7 @@ function handleClick (item: CardOverview) {
 
 .selected-card {
     border-color: black;
-    border-width: 3px;
+    border-width: 2px;
 }
 
 @media (min-width: 1024px) {
