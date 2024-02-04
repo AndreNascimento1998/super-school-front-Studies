@@ -14,10 +14,15 @@
         </div>
         <div class="row">
             <div class="col-12 col-md-4">
-               <InputSelect label="Modalidades" :items="options" />
+               <InputSelect
+                   v-model="payload.modalities"
+                   @change="() => disabledCoursesSelect = false"
+                   label="Modalidades"
+                   :items="modalityOpt"
+               />
             </div>
             <div class="my-4 my-md-0 col-12 col-md-4">
-                <InputSelect label="Cursos" :items="options" />
+                <InputSelect :disabled="disabledCoursesSelect" label="Cursos" :items="options" />
             </div>
             <div class="d-grid col-12 col-md-4 h-md-25 align-self-md-end">
                 <button class="btn btn-success" type="button">Buscar</button>
@@ -27,7 +32,7 @@
 </template>
 <script setup lang="ts">
 
-import {Ref, ref} from "vue";
+import {computed, onMounted, reactive, Ref, ref} from "vue";
 import InputSelect from "@/components/InputSelect.vue";
 import CardPromotion from "@/components/CardPromotion.vue";
 import {CardOverview} from "@/model/Interfaces/CardOverview.ts";
@@ -37,7 +42,15 @@ import techinicalCourses from "@/assets/images/trainingModalities/techinical-cou
 import freeCourses from "@/assets/images/trainingModalities/free-courses.png";
 import languages from "@/assets/images/trainingModalities/languages.png";
 import preparationCourses from "@/assets/images/trainingModalities/preparation-courses.png";
+import {useModalityStore} from "@/stores/ModalityStore.ts";
+import {DataCourseSelection} from "@/model/Interfaces/DataCourseSelection.ts";
 
+const disabledCoursesSelect = ref(true)
+const payload: DataCourseSelection = reactive({
+        modalities: {},
+        courses: {}
+})
+const modalityStore = useModalityStore()
 const modalities: Ref<Array<CardOverview>> = ref([
     {
         id: 1,
@@ -72,18 +85,24 @@ const modalities: Ref<Array<CardOverview>> = ref([
 ])
 const options = ref([
     {
-        text: 'Curso Informática',
+        name: 'Curso Informática',
         value: '1'
     },
     {
-        text: 'Curso Técnico',
+        name: 'Curso Técnico',
         value: '2'
     },
     {
-        text: 'Curso de Fisiologia',
+        name: 'Curso de Fisiologia',
         value: '3'
     }
 ])
+
+const modalityOpt = computed(() => modalityStore.modalityOptions )
+
+onMounted( async() => {
+    await modalityStore.fetchModality()
+})
 
 function handleClick(item: CardOverview) {
     console.log(item)
