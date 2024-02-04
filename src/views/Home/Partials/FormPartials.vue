@@ -15,14 +15,19 @@
         <div class="row">
             <div class="col-12 col-md-4">
                <InputSelect
-                   v-model="payload.modalities"
-                   @change="() => disabledCoursesSelect = false"
+                   v-model="dataSelect.modalities"
+                   @change="fetchCoursesData()"
                    label="Modalidades"
                    :items="modalityOpt"
                />
             </div>
             <div class="my-4 my-md-0 col-12 col-md-4">
-                <InputSelect :disabled="disabledCoursesSelect" label="Cursos" :items="options" />
+                <InputSelect
+                    v-model="dataSelect.courses"
+                    :disabled="disabledCoursesSelect"
+                    label="Cursos"
+                    :items="courseOtp"
+                />
             </div>
             <div class="d-grid col-12 col-md-4 h-md-25 align-self-md-end">
                 <button class="btn btn-success" type="button">Buscar</button>
@@ -44,13 +49,15 @@ import languages from "@/assets/images/trainingModalities/languages.png";
 import preparationCourses from "@/assets/images/trainingModalities/preparation-courses.png";
 import {useModalityStore} from "@/stores/ModalityStore.ts";
 import {DataCourseSelection} from "@/model/Interfaces/DataCourseSelection.ts";
+import {useCourseStore} from "@/stores/CourseStore.ts";
 
 const disabledCoursesSelect = ref(true)
-const payload: DataCourseSelection = reactive({
+const dataSelect: DataCourseSelection = reactive({
         modalities: {},
         courses: {}
 })
 const modalityStore = useModalityStore()
+const courseStore = useCourseStore()
 const modalities: Ref<Array<CardOverview>> = ref([
     {
         id: 1,
@@ -83,27 +90,18 @@ const modalities: Ref<Array<CardOverview>> = ref([
         desc: "Cursos de preparação"
     },
 ])
-const options = ref([
-    {
-        name: 'Curso Informática',
-        value: '1'
-    },
-    {
-        name: 'Curso Técnico',
-        value: '2'
-    },
-    {
-        name: 'Curso de Fisiologia',
-        value: '3'
-    }
-])
 
 const modalityOpt = computed(() => modalityStore.modalityOptions )
+const courseOtp = computed(() => courseStore.courseOptions )
 
 onMounted( async() => {
     await modalityStore.fetchModality()
 })
 
+async function fetchCoursesData () {
+    await courseStore.fetchCourse(dataSelect.modalities.id)
+    disabledCoursesSelect.value = false
+}
 function handleClick(item: CardOverview) {
     console.log(item)
 }
