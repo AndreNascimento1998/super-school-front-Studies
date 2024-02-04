@@ -8,8 +8,8 @@ export const useCheckoutStore = defineStore('checkoutStore', () => {
     const cep: Ref<string> = ref('')
     const cpf: Ref<string> = ref('')
     const dateBirth: Ref<string> = ref('')
-    const fileCnh: Ref<File> = ref(null)
-    const fileRg: Ref<File> = ref(null)
+    const fileCnh: Ref<any> = ref(null)
+    const fileRg: Ref<any> = ref(null)
 
     return {
         name,
