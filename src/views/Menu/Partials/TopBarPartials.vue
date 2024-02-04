@@ -26,7 +26,7 @@
 </template>
 <script setup lang="ts">
 import { LogoIcon } from '@/assets/icons'
-import {userAuthStore} from "@/stores/authStore.ts";
+import {userAuthStore} from "@/stores/AuthStore.ts";
 import {computed, ComputedRef} from "vue";
 import {User} from "@/model/Interfaces/User.ts";
 
