@@ -30,17 +30,6 @@
                     </div>
                 </div>
             </div>
-
-
-<!--            <CardPromotiond-flex justify-content-around gap-md-5  justify-content-md-around-->
-
-<!--                v-for="item in modalities"-->
-<!--                @click-event="chooseGraduation"-->
-<!--                :content="item"-->
-<!--                padding-y-->
-<!--                cursor-pointer-->
-<!--                selected-->
-<!--            />-->
         </div>
         <div class="row">
             <div class="col-12 col-md-4">
@@ -72,7 +61,6 @@
             <CardPromotion
                 @click="nextPage"
                 :content="contentCourse"
-                width="13rem"
                 cursor-pointer
             />
         </div>
@@ -95,14 +83,15 @@ import router from "@/router";
 
 const graduationCardSelect: Ref<number> = ref(1)
 const courseDataStore = useCourseDataStore()
-const disabledCoursesSelect = ref(true)
+const disabledCoursesSelect: Ref<Boolean> = ref(true)
 const dataSelect: DataCourseSelection = reactive({
-        modalities: {},
+        modalities: {
+            id: null as unknown as number
+        },
         courses: {}
 })
 const modalityStore = useModalityStore()
 const courseStore = useCourseStore()
-
 const modalities: Ref<Array<CardOverview>> = ref([
     {
         id: 1,
@@ -121,7 +110,8 @@ let typeGraduation: Ref<number> = ref(1)
 
 const modalityOpt = computed(() => modalityStore.modalityOptions )
 const courseOtp = computed(() => {
-    return courseStore?.courseOptions?.filter((item) => item.typeGraduationId === typeGraduation.value)
+    console.log(courseStore?.courseOptions)
+    return courseStore?.courseOptions?.filter((item: any) => item.typeGraduationId === typeGraduation.value)
 })
 let graduationText: object = ({
     "1": "Graduação",
@@ -145,7 +135,8 @@ function chooseGraduation(item: CardOverview) {
 }
 
 function cardOffers() {
-    graduationTitle.value = graduationText[dataSelect.courses.typeGraduationId]
+    graduationTitle.value = graduationText[dataSelect.courses.typeGraduationId as keyof typeof graduationText];
+
     contentCourse.value = dataSelect.courses
 }
 

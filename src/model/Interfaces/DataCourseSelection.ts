@@ -1,4 +1,6 @@
+import {Modalities} from "@/model/Interfaces/Modalities.ts";
+
 export interface DataCourseSelection {
-    modalities: object
+    modalities: Modalities
     courses: object
 }
