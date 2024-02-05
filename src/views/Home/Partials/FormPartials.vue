@@ -1,17 +1,46 @@
 <template>
     <div class="container-fluid ">
-        <div class="d-flex mt-4 align-items-center justify-content-center">
-            <span class="font-default">Qual é o seu interesse acadêmico?</span>
-        </div>
-        <div class="d-flex justify-content-around gap-md-5  justify-content-md-around">
-            <CardPromotion
-                v-for="item in modalities"
-                @click-event="chooseGraduation"
-                :content="item"
-                padding-y
-                cursor-pointer
-                selected
-            />
+        <div class="d-flex justify-content-around">
+            <div class="card container-card p-4">
+                <span class="font-default text-center mb-4">Qual é o seu interesse acadêmico?</span>
+                <div class="d-flex justify-content-around justify-content-md-center gap-md-5">
+                    <div class="d-flex flex-column align-items-center gap-4">
+                        <div>
+                             <GraduationIcon
+                                 @click="chooseGraduation( modalities[0])"
+                                 class="border-card-graduation"
+                                 :class="{'border-0': typeGraduation !== 1}"
+                             />
+                        </div>
+                        <div class="text-card-graduation">
+                            {{ modalities[0].title }}
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column align-items-center gap-4">
+                        <div>
+                            <PostGraduationIcon
+                                @click="chooseGraduation( modalities[1])"
+                                class="border-card-graduation"
+                                :class="{'border-0': typeGraduation !== 2}"
+                            />
+                        </div>
+                        <div class="text-card-graduation">
+                            {{ modalities[1].title }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+<!--            <CardPromotiond-flex justify-content-around gap-md-5  justify-content-md-around-->
+
+<!--                v-for="item in modalities"-->
+<!--                @click-event="chooseGraduation"-->
+<!--                :content="item"-->
+<!--                padding-y-->
+<!--                cursor-pointer-->
+<!--                selected-->
+<!--            />-->
         </div>
         <div class="row">
             <div class="col-12 col-md-4">
@@ -35,12 +64,14 @@
             </div>
         </div>
     </div>
-    <div v-if="discountGraduation" class="content mt-5 container-fluid">
+    <div v-if="contentCourse" class="content mt-5 container-fluid">
+        {{ graduationTitle }}
         <div class="container-fluid d-flex flex-column align-items-center ">
             <span class="content__font-title">Cursos em oferta! </span>
+            {{ graduationText }}
             <CardPromotion
                 @click="nextPage"
-                :content="discountGraduation"
+                :content="contentCourse"
                 width="13rem"
                 cursor-pointer
             />
@@ -53,6 +84,7 @@ import {computed, onMounted, reactive, Ref, ref} from "vue";
 import InputSelect from "@/components/InputSelect.vue";
 import CardPromotion from "@/components/CardPromotion.vue";
 import {CardOverview} from "@/model/Interfaces/CardOverview.ts";
+import {GraduationIcon, PostGraduationIcon} from "@/assets/icons";
 import graduation from "@/assets/images/trainingModalities/graduation.png";
 import postGraduation from "@/assets/images/trainingModalities/post-graduation.png";
 import {useModalityStore} from "@/stores/ModalityStore.ts";
@@ -61,6 +93,7 @@ import {useCourseStore} from "@/stores/CourseStore.ts";
 import {useCourseDataStore} from "@/stores/CourseDataStore.ts";
 import router from "@/router";
 
+const graduationCardSelect: Ref<number> = ref(1)
 const courseDataStore = useCourseDataStore()
 const disabledCoursesSelect = ref(true)
 const dataSelect: DataCourseSelection = reactive({
@@ -69,6 +102,7 @@ const dataSelect: DataCourseSelection = reactive({
 })
 const modalityStore = useModalityStore()
 const courseStore = useCourseStore()
+
 const modalities: Ref<Array<CardOverview>> = ref([
     {
         id: 1,
@@ -82,10 +116,18 @@ const modalities: Ref<Array<CardOverview>> = ref([
     },
 ])
 let selectedGraduation: Ref<CardOverview> | Ref<number> = ref(1)
-let discountGraduation = ref()
+let contentCourse = ref()
+let typeGraduation: Ref<number> = ref(1)
 
 const modalityOpt = computed(() => modalityStore.modalityOptions )
-const courseOtp = computed(() => courseStore.courseOptions )
+const courseOtp = computed(() => {
+    return courseStore?.courseOptions?.filter((item) => item.typeGraduationId === typeGraduation.value)
+})
+let graduationText: object = ({
+    "1": "Graduação",
+    "2": "Pós-Graduação"
+})
+const graduationTitle = ref('')
 
 onMounted( async() => {
     await modalityStore.fetchModality()
@@ -96,12 +138,15 @@ async function fetchCoursesData () {
     disabledCoursesSelect.value = false
 }
 function chooseGraduation(item: CardOverview) {
+    graduationCardSelect.value = item.id
+    typeGraduation.value = item.id
     courseDataStore.overviewDataCourse.typeGraduation = item.title
     selectedGraduation.value = item
 }
 
 function cardOffers() {
-    discountGraduation.value = dataSelect.courses
+    graduationTitle.value = graduationText[dataSelect.courses.typeGraduationId]
+    contentCourse.value = dataSelect.courses
 }
 
 function nextPage() {
@@ -110,8 +155,8 @@ function nextPage() {
 }
 
 function assignValuesDataCourse() {
-    console.log(dataSelect.courses)
     courseDataStore.overviewDataCourse.id = dataSelect.courses.id
+    courseDataStore.overviewDataCourse.name = dataSelect.courses.name
     courseDataStore.overviewDataCourse.idCourse = dataSelect.courses.idCourse
     courseDataStore.overviewDataCourse.discount = dataSelect.courses.discount
     courseDataStore.overviewDataCourse.title = dataSelect.courses.title
@@ -133,6 +178,33 @@ function assignValuesDataCourse() {
         font-size: 14px;
     }
 }
+
+.container-card {
+    width: 100%;
+}
+
+@media (min-width: 769px) {
+    .container-card{
+        width: 75%;
+    }
+}
+
+.border-card-graduation {
+    cursor: pointer;
+    border: 1px solid $primary-color;
+    border-radius: 50px;
+    padding: 20px;
+    width: 90px;
+    height: 90px;
+}
+
+.text-card-graduation {
+    color: $primary-color;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+}
+
 
 .font-default {
     color: $primary-color;

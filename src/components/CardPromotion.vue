@@ -17,7 +17,7 @@
 
             <div v-if="content.price" class="card-body d-flex flex-column gap-2">
                 <div class="card-modalities__discount">Clique aqui e adquira agora!</div>
-                <div v-if="content.discount" class="card-modalities__text">Desconto de <span class="card-modalities__discount">{{ content.discount }}%</span></div>
+                <div v-if="content.discount " class="card-modalities__text">Desconto de <span class="card-modalities__discount">{{ content.discount }}%</span></div>
                 <div class="card-modalities__text">A partir de <span class="card-modalities__discount">R${{ content.price }}</span></div>
             </div>
         </div>
