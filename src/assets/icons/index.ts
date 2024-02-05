@@ -14,6 +14,8 @@ import LinkedinIcon from "@/assets/icons/linkedin.vue";
 import LineSeparatorIcon from "@/assets/icons/lineSeparator.vue";
 import LineDesktopIcon from "@/assets/icons/lineDesktop.vue";
 import OpenFileIcon from "@/assets/icons/openFile.vue";
+import GraduationIcon from "@/assets/icons/graduation.vue";
+import PostGraduationIcon from "@/assets/icons/postGraduation.vue";
 
 export {
     LogoIcon,
@@ -31,5 +33,7 @@ export {
     LinkedinIcon,
     LineSeparatorIcon,
     LineDesktopIcon,
-    OpenFileIcon
+    OpenFileIcon,
+    GraduationIcon,
+    PostGraduationIcon
 }
