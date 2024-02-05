@@ -6,7 +6,7 @@
         <div class="d-flex justify-content-around gap-md-5  justify-content-md-around">
             <CardPromotion
                 v-for="item in modalities"
-                @click-event="handleClick"
+                @click-event="chooseGraduation"
                 :content="item"
                 padding-y
                 cursor-pointer
@@ -35,10 +35,11 @@
             </div>
         </div>
     </div>
-    <div class="content mt-5 container-fluid">
+    <div v-if="discountGraduation" class="content mt-5 container-fluid">
         <div class="container-fluid d-flex flex-column align-items-center ">
             <span class="content__font-title">Cursos em oferta! </span>
             <CardPromotion
+                @click="nextPage"
                 :content="discountGraduation"
                 width="13rem"
                 cursor-pointer
@@ -57,7 +58,10 @@ import postGraduation from "@/assets/images/trainingModalities/post-graduation.p
 import {useModalityStore} from "@/stores/ModalityStore.ts";
 import {DataCourseSelection} from "@/model/Interfaces/DataCourseSelection.ts";
 import {useCourseStore} from "@/stores/CourseStore.ts";
+import {useCourseDataStore} from "@/stores/CourseDataStore.ts";
+import router from "@/router";
 
+const courseDataStore = useCourseDataStore()
 const disabledCoursesSelect = ref(true)
 const dataSelect: DataCourseSelection = reactive({
         modalities: {},
@@ -77,7 +81,7 @@ const modalities: Ref<Array<CardOverview>> = ref([
         title: "Pós-graduação"
     },
 ])
-let selectedGraduation: Ref<CardOverview> = ref(1)
+let selectedGraduation: Ref<CardOverview> | Ref<number> = ref(1)
 let discountGraduation = ref()
 
 const modalityOpt = computed(() => modalityStore.modalityOptions )
@@ -91,12 +95,31 @@ async function fetchCoursesData () {
     await courseStore.fetchCourse(dataSelect.modalities.id)
     disabledCoursesSelect.value = false
 }
-function handleClick(item: CardOverview) {
+function chooseGraduation(item: CardOverview) {
+    courseDataStore.overviewDataCourse.typeGraduation = item.title
     selectedGraduation.value = item
 }
 
 function cardOffers() {
     discountGraduation.value = dataSelect.courses
+}
+
+function nextPage() {
+    router.push({name: 'checkout'})
+    assignValuesDataCourse()
+}
+
+function assignValuesDataCourse() {
+    console.log(dataSelect.courses)
+    courseDataStore.overviewDataCourse.id = dataSelect.courses.id
+    courseDataStore.overviewDataCourse.idCourse = dataSelect.courses.idCourse
+    courseDataStore.overviewDataCourse.discount = dataSelect.courses.discount
+    courseDataStore.overviewDataCourse.title = dataSelect.courses.title
+    courseDataStore.overviewDataCourse.period = dataSelect.courses.period
+    courseDataStore.overviewDataCourse.maxInstallments = dataSelect.courses.maxInstallments
+    courseDataStore.overviewDataCourse.turn = dataSelect.courses.turn
+    courseDataStore.overviewDataCourse.typeModality = dataSelect.courses.type
+    courseDataStore.overviewDataCourse.price = dataSelect.courses.price
 }
 </script>
 
