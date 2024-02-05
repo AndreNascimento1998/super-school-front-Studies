@@ -110,7 +110,6 @@ let typeGraduation: Ref<number> = ref(1)
 
 const modalityOpt = computed(() => modalityStore.modalityOptions )
 const courseOtp = computed(() => {
-    console.log(courseStore?.courseOptions)
     return courseStore?.courseOptions?.filter((item: any) => item.typeGraduationId === typeGraduation.value)
 })
 let graduationText: object = ({
