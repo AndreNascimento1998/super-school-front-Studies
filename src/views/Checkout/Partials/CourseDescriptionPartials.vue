@@ -6,39 +6,36 @@
             </div>
             <div class="d-flex flex-column gap-4">
                 <div class="d-flex flex-column gap-2">
-                    <span class="matter-title">História</span>
+                    <span class="matter-title">{{ courseDataStore.overviewDataCourse.title }}</span>
                     <div>
-                        <span class="content-title">EAD- </span><span class="text-description">4 anos (8 períodos)</span>
+                        <span class="content-title">{{ courseDataStore.overviewDataCourse.typeModality }}- </span><span class="text-description">{{ courseDataStore.overviewDataCourse.period }}</span>
                     </div>
                 </div>
                 <div class="d-flex flex-column gap-2">
                     <div>
-                        <span class="content-title">Turno: </span><span class="content-description">Livre</span>
+                        <span class="content-title">Tipo de graduação: </span><span class="content-description">{{ courseDataStore.overviewDataCourse.typeGraduation }}</span>
                     </div>
                     <div>
-                        <span class="content-title">Período: </span><span class="content-description">1° Sem/2024</span>
-                    </div>
-                    <div>
-                        <span class="content-title">Modalidade: </span><span class="content-description">Online</span>
+                        <span class="content-title">Turno: </span><span class="content-description">{{ courseDataStore.overviewDataCourse.turn }}</span>
                     </div>
                 </div>
             </div>
             <LineSeparator class="d-flex d-md-none" />
             <div>
                 <div class="d-flex justify-content-between">
-                    <span class="content-title">Número máximo de parcelas: </span><span class="content-description">60x</span>
+                    <span class="content-title">Número máximo de parcelas: </span><span class="content-description">{{ courseDataStore.overviewDataCourse.maxInstallments }}x</span>
+                </div>
+                <LineDesktop class="d-none d-md-flex" />
+                <div v-if="courseDataStore.overviewDataCourse.maxInstallments" class="d-flex justify-content-between">
+                    <span class="content-title">Em {{ courseDataStore.overviewDataCourse.maxInstallments }}x</span><span class="content-description">R$ {{ courseDataStore.overviewDataCourse.price / courseDataStore.overviewDataCourse.maxInstallments }}</span>
                 </div>
                 <LineDesktop class="d-none d-md-flex" />
                 <div class="d-flex justify-content-between">
-                    <span class="content-title">Mensalidade </span><span class="content-description">R$ 637,00</span>
+                    <span class="content-title">Desconto: </span><span class="content-description">{{ courseDataStore.overviewDataCourse.discount }}%</span>
                 </div>
                 <LineDesktop class="d-none d-md-flex" />
                 <div class="d-flex justify-content-between">
-                    <span class="content-title">Desconto: </span><span class="content-description">80%</span>
-                </div>
-                <LineDesktop class="d-none d-md-flex" />
-                <div class="d-flex justify-content-between">
-                    <span class="content-title">Você pagará mensalmente:  </span><span class="content-description">R$ 127,40</span>
+                    <span class="content-title">Você pagará mensalmente:  </span><span class="content-description">R$ {{ courseDataStore.overviewDataCourse.price }}</span>
                 </div>
             </div>
             <div class="d-grid col-12 col-md-4 h-md-25 align-self-md-end">
@@ -53,6 +50,9 @@
 <script setup lang="ts">
 import LineSeparator from "@/assets/icons/lineSeparator.vue";
 import LineDesktop from "@/assets/icons/lineDesktop.vue";
+import {useCourseDataStore} from "@/stores/CourseDataStore.ts";
+
+const courseDataStore = useCourseDataStore()
 
 const emits = defineEmits(
     ['click-event']

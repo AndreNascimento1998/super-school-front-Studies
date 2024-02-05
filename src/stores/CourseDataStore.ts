@@ -5,13 +5,14 @@ export const useCourseDataStore = defineStore('courseDataStore', () => {
 
     const overviewDataCourse = reactive({
         id: null,
+        name: '',
         typeGraduation: "Graduação",
         idCourse: null,
         title: '',
         turn: '',
         typeModality: '',
         maxInstallments: null,
-        discount: '',
+        discount: null,
         period: null,
         price: null
     })
