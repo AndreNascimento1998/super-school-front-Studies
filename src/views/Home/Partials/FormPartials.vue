@@ -3,10 +3,11 @@
         <div class="d-flex mt-4 align-items-center justify-content-center">
             <span class="font-default">Qual é o seu interesse acadêmico?</span>
         </div>
-        <div>
+        <div class="d-flex justify-content-around gap-md-5  justify-content-md-around">
             <CardPromotion
+                v-for="item in modalities"
                 @click-event="handleClick"
-                :content="modalities"
+                :content="item"
                 padding-y
                 cursor-pointer
                 selected
@@ -30,28 +31,16 @@
                 />
             </div>
             <div class="d-grid col-12 col-md-4 h-md-25 align-self-md-end">
-                <button class="btn btn-success" type="button">Buscar</button>
+                <button @click="cardOffers()" class="btn btn-success" type="button">Buscar</button>
             </div>
         </div>
     </div>
-    <div class="row content mt-5 container-fluid">
-        <div class="container-fluid col-12 col-lg-5 col-xl-4">
-            <span class="content__font-title">Descontos em cursos de graduação: </span>
-            <p class="content_font-desc">Modalidade: EAD </p>
-            <p class="content_font-desc">Cursos: Direito </p>
+    <div class="content mt-5 container-fluid">
+        <div class="container-fluid d-flex flex-column align-items-center ">
+            <span class="content__font-title">Cursos em oferta! </span>
             <CardPromotion
                 :content="discountGraduation"
-                width="11rem"
-                cursor-pointer
-            />
-        </div>
-        <div class="my-5 my-lg-0 container-fluid col-12 col-lg-5 col-xl-4">
-            <span class="content__font-title">Descontos em cursos de pós-graduação: </span>
-            <p class="content__font-desc">Modalidade: EAD </p>
-            <p class="content__font-desc">Cursos: História </p>
-            <CardPromotion
-                :content="discountGraduation"
-                width="11rem"
+                width="13rem"
                 cursor-pointer
             />
         </div>
@@ -65,10 +54,6 @@ import CardPromotion from "@/components/CardPromotion.vue";
 import {CardOverview} from "@/model/Interfaces/CardOverview.ts";
 import graduation from "@/assets/images/trainingModalities/graduation.png";
 import postGraduation from "@/assets/images/trainingModalities/post-graduation.png";
-import techinicalCourses from "@/assets/images/trainingModalities/techinical-courses.png";
-import freeCourses from "@/assets/images/trainingModalities/free-courses.png";
-import languages from "@/assets/images/trainingModalities/languages.png";
-import preparationCourses from "@/assets/images/trainingModalities/preparation-courses.png";
 import {useModalityStore} from "@/stores/ModalityStore.ts";
 import {DataCourseSelection} from "@/model/Interfaces/DataCourseSelection.ts";
 import {useCourseStore} from "@/stores/CourseStore.ts";
@@ -84,68 +69,16 @@ const modalities: Ref<Array<CardOverview>> = ref([
     {
         id: 1,
         src: graduation,
-        desc: "Graduação"
+        title: "Graduação"
     },
     {
         id: 2,
         src: postGraduation,
-        desc: "Pós-graduação"
-    },
-    {
-        id: 3,
-        src: techinicalCourses,
-        desc: "Cursos técnicos"
-    },
-    {
-        id: 4,
-        src: freeCourses,
-        desc: "Cursos livres"
-    },
-    {
-        id: 5,
-        src: languages,
-        desc: "Idiomas"
-    },
-    {
-        id: 6,
-        src: preparationCourses,
-        desc: "Cursos de preparação"
+        title: "Pós-graduação"
     },
 ])
-const discountGraduation: Ref<Array<CardOverview>> = ref([
-    {
-        id: 1,
-        title:"Direito",
-        descOpt: "Desconto de ",
-        discount: "20%",
-        desc: "A partir de ",
-        price: "R$ 490,00"
-    },
-    {
-        id: 2,
-        title:"História",
-        descOpt: "Desconto de ",
-        discount: "80%",
-        desc: "A partir de ",
-        price: "R$ 120,00"
-    },
-    {
-        id: 3,
-        title:"Direito",
-        descOpt: "Desconto de ",
-        discount: "20%",
-        desc: "A partir de ",
-        price: "R$ 490,00"
-    },
-    {
-        id: 4,
-        title:"História",
-        descOpt: "Desconto de ",
-        discount: "80%",
-        desc: "A partir de ",
-        price: "R$ 120,00"
-    }
-])
+let selectedGraduation: Ref<CardOverview> = ref(1)
+let discountGraduation = ref()
 
 const modalityOpt = computed(() => modalityStore.modalityOptions )
 const courseOtp = computed(() => courseStore.courseOptions )
@@ -159,7 +92,11 @@ async function fetchCoursesData () {
     disabledCoursesSelect.value = false
 }
 function handleClick(item: CardOverview) {
-    console.log(item)
+    selectedGraduation.value = item
+}
+
+function cardOffers() {
+    discountGraduation.value = dataSelect.courses
 }
 </script>
 

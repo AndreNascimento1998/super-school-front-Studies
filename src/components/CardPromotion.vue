@@ -1,35 +1,24 @@
 <template>
-    <div class="d-flex justify-content-around my-4 flex-wrap gap-2">
+    <div class="d-flex my-4 flex-wrap gap-2">
         <div
-            v-for="item in props.content"
-            :key="item.id"
-            @click="() => handleClick(item)"
+            @click="() => handleClick(content)"
             class="card card-modalities align-items-center"
             :class="{
-                'selected-card': selected && selectedCard === item.id,
+                'd-none': !content.title,
                 'py-4': props.paddingY,
                 'cursor-pointer': cursorPointer,
 
             }"
         >
-            <img v-if="item.src" class="card-img-top w-50" :src="item.src" alt="Modalidades">
-            <div v-if="item.title" class="card-body ">
-                <p class="card-text text-center card-modalities__title">{{ item.title }}</p>
+            <img v-if="content.src" class="card-img-top w-50" :src="content.src" alt="Modalidades">
+            <div v-if="content.title" class="card-body ">
+                <p class="card-text card-modalities__title">{{ content.title }}</p>
             </div>
-            <div class="card-body">
-                <p
-                    v-if="item.descOpt"
-                    style="font-size: 12px"
-                    class="card-text text-center "
-                >
-                    {{ item.descOpt }}
-                    <span
-                        class="card-modalities__discount"
-                    >
-                        {{ item.discount }}
-                    </span>
-                </p>
-                <p style="font-size: 12px" class="card-text text-center ">{{ item.desc }} <span class="card-modalities__price">{{ item.price }}</span> </p>
+
+            <div v-if="content.price" class="card-body d-flex flex-column gap-2">
+                <div class="card-modalities__discount">Clique aqui e adquira agora!</div>
+                <div v-if="content.discount" class="card-modalities__text">Desconto de <span class="card-modalities__discount">{{ content.discount }}%</span></div>
+                <div class="card-modalities__text">A partir de <span class="card-modalities__discount">R${{ content.price }}</span></div>
             </div>
         </div>
     </div>
@@ -48,7 +37,7 @@ const emits = defineEmits(
 
 const props = defineProps({
     content: {
-        type: Array<CardOverview>,
+        type: Object<CardOverview>,
         default: [],
         required: true
     },
@@ -63,11 +52,6 @@ const props = defineProps({
         required: false
     },
     paddingY: {
-        type: Boolean,
-        default: false,
-        required: false
-    },
-    selected: {
         type: Boolean,
         default: false,
         required: false
@@ -105,6 +89,10 @@ function handleClick (item: CardOverview) {
         color: $primary-color;
     }
 
+    &__text {
+        font-size: 12px;
+    }
+
     &__discount {
         font-size: 14px;
         font-weight: 700;
@@ -116,11 +104,11 @@ function handleClick (item: CardOverview) {
         font-size: 14px;
     }
 }
-
-.selected-card {
-    border-color: black;
-    border-width: 2px;
-}
+//
+//.selected-card {
+//    border-color: black;
+//    border-width: 2px;
+//}
 
 @media (min-width: 1024px) {
     .card-modalities {
