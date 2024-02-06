@@ -1,46 +1,49 @@
 <template>
     <div class="container">
 
-        <div class="d-md-flex justify-content-md-around my-md-3">
-            <div @click="() => stepSelected = 0" :class="{'d-none':stepSelected === 0}">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-header">
-                        Resumo da compra
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Curso: {{ courseDataStore.overviewDataCourse.name }}</li>
-                        <li class="list-group-item">Modalidade: {{ courseDataStore.overviewDataCourse.typeModality }}</li>
-                        <li class="list-group-item">Tipo de graduação: {{ courseDataStore.overviewDataCourse.typeGraduation }}</li>
-                        <li class="list-group-item">Valor: R${{ courseDataStore.overviewDataCourse.price }}</li>
-                    </ul>
+        <div
+            class="d-flex flex-column flex-md-row align-items-md-start align-items-center
+             gap-2 d-md-flex justify-content-md-around mb-5 my-md-3">
+            <div :class="{'d-none':stepSelected === 0}">
+                <CardList
+                    title="Resumo da compra"
+                    :content="resumeOrderContent"
+                />
+            </div>
+            <div
+                @click="() => stepSelected = 1"
+                v-if="checkoutStore.name"
+                :class="{
+                    'd-none':stepSelected === 0,
+                    'display-ocult': moreLessText === 'Mais',
+                }"
+            >
+                <div>
+                    <CardList
+                        title="Primeira etapa "
+                        :content="firstStepOrderContent"
+                    />
                 </div>
             </div>
-            <div @click="() => stepSelected = 1" v-if="checkoutStore.name" :class="{'d-none':stepSelected === 0}">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-header">
-                        Primeira etapa
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Nome: {{ checkoutStore.name }}</li>
-                        <li class="list-group-item">E-mail: {{ checkoutStore.email }}</li>
-                        <li class="list-group-item">Telefone: {{ checkoutStore.phone }}</li>
-                    </ul>
+            <div
+                @click="() => stepSelected = 2"
+                v-if="checkoutStore.cep"
+                :class="{
+                    'd-none':stepSelected === 0,
+                    'display-ocult': moreLessText === 'Mais'
+                }"
+            >
+                <div>
+                    <CardList
+                        title="Segunda etapa"
+                        :content="secondStepOrderContent"
+                    />
                 </div>
             </div>
-            <div @click="() => stepSelected = 2" v-if="checkoutStore.cep" :class="{'d-none':stepSelected === 0}">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-header">
-                        Resumo da compra
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">CEP: {{ checkoutStore.cep }}</li>
-                        <li class="list-group-item">CPF: {{ checkoutStore.cpf }}</li>
-                        <li class="list-group-item">Data de Nascimento: {{ checkoutStore.dateBirth }}</li>
-                    </ul>
-                </div>
+            <div class="d-flex d-md-none" :class="{'d-none':stepSelected === 0}">
+                <button @click="showDetails()" type="button" class="btn btn-outline-success">{{ moreLessText }} detalhes</button>
             </div>
         </div>
-
         <div v-if="stepSelected !== 0" class="d-flex justify-content-center gap-3 gap-md-4 gap-lg-5">
             <div
                 v-for="stepValue in stepsItems"
@@ -71,20 +74,24 @@
 
 <script setup lang="ts">
 
-import {onUnmounted, Ref, ref} from "vue";
-import {Steps} from "@/model/Interfaces/Steps.ts";
+import {computed, onMounted, onUnmounted, Ref, ref} from "vue";
+import {ISteps} from "@/model/Interfaces/ISteps.ts";
 import CourseDescriptionPartials from "@/views/Checkout/Partials/CourseDescriptionPartials.vue";
 import FirstStepPartials from "@/views/Checkout/Partials/FirstStepPartials.vue";
 import SecondStepPartials from "@/views/Checkout/Partials/SecondStepPartials.vue";
 import ThirdStepPartials from "@/views/Checkout/Partials/ThirdStepPartials.vue";
 import {useCourseDataStore} from "@/stores/CourseDataStore.ts";
 import {useCheckoutStore} from "@/stores/CheckoutStore.ts";
+import router from "@/router";
+import CardList from "@/components/Card/CardList.vue";
+import {useGlobalStore} from "@/stores/GlobalStore.ts";
 
+const globalStore = useGlobalStore()
 const checkoutStore = useCheckoutStore()
 const courseDataStore = useCourseDataStore()
 const stepSelected = ref(0)
 const resetStep = 0
-const stepsItems: Ref<Array<Steps>> = ref([
+const stepsItems: Ref<Array<ISteps>> = ref([
     {
         id: 1,
         step: 1
@@ -98,6 +105,78 @@ const stepsItems: Ref<Array<Steps>> = ref([
         step: 3
     }
 ])
+let moreLessText: Ref<string> = ref('Mais')
+
+const resumeOrderContent = computed(() => {
+    const priceDiscounted = globalStore.discountPrice(courseDataStore.overviewDataCourse.price, courseDataStore.overviewDataCourse.discount)
+    const installmentsText = `${courseDataStore.overviewDataCourse.installmentChoose.name}x`
+    return [
+        {
+            text: 'Curso',
+            desc: courseDataStore.overviewDataCourse.name
+        },
+        {
+            text: 'Modalidade',
+            desc: courseDataStore.overviewDataCourse.typeModality
+        },
+        {
+            text: 'Tipo de graduação',
+            desc: courseDataStore.overviewDataCourse.typeGraduation
+        },
+        {
+            text: 'Número de parcelas',
+            desc: installmentsText
+        },
+        {
+            text: 'Valor',
+            desc: globalStore.formatCurrency(priceDiscounted)
+        }
+    ]
+})
+const firstStepOrderContent = computed(() => {
+        return [
+            {
+                text: 'Nome',
+                desc: checkoutStore.name
+            },
+            {
+                text: 'E-mail',
+                desc: checkoutStore.email
+            },
+            {
+                text: 'Telefone',
+                desc: checkoutStore.phone
+            }
+        ]
+})
+const secondStepOrderContent = computed(() => {
+    return [
+        {
+            text: 'CEP',
+            desc: checkoutStore.cep
+        },
+        {
+            text: 'CPF',
+            desc: checkoutStore.cpf
+        },
+        {
+            text: 'Data de Nascimento',
+            desc: checkoutStore.dateBirth
+        }
+    ]
+})
+
+onMounted(() => {
+    window.scrollTo({top: 0})
+
+    if (!courseDataStore?.overviewDataCourse?.id) {
+        router.push({name: 'home'})
+    }
+})
+
+function showDetails() {
+    moreLessText.value = moreLessText.value === 'Mais' ? 'Menos' : 'Mais'
+}
 
 function nextSteps(step: number) {
     stepSelected.value = step
@@ -114,7 +193,6 @@ onUnmounted(() => {
 
 <style scoped lang="scss">
 .steps {
-    cursor: pointer;
     border-radius: 65px;
     background: #CCC;
     display: flex;
@@ -126,10 +204,21 @@ onUnmounted(() => {
     &__number {
         position: absolute;
         color: #808080;
-        font-family: Roboto;
         font-size: 20px;
         font-style: normal;
         font-weight: 500;
+    }
+}
+
+.animated-container {
+    transition: max-height 0.5s ease-in-out;
+    overflow: hidden;
+    max-height: 500px;
+}
+
+@media (max-width: 578px) {
+    .display-ocult {
+        display: none !important;
     }
 }
 

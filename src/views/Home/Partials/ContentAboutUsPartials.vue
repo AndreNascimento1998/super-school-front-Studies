@@ -51,12 +51,12 @@
 import {ref, Ref} from "vue";
 import {FilterIcon, RegisterIcon, RegistrationIcon, StudiesIcon, SearchIcon} from "@/assets/icons";
 import imageAboutUs from"@/assets/images/secctionAboutUs/imageContentAboutUs.png"
-import CardTestimonials from "@/components/CardTestimonials.vue";
+import CardTestimonials from "@/components/Card/CardTestimonials.vue";
 import imageTestemonial from "@/assets/images/cardAaboutUs/userTestemonial.png"
-import {CardTestemonial} from "@/model/Interfaces/CardTestemonial.ts";
+import {ICardTestemonial} from "@/model/Interfaces/ICardTestemonial.ts";
 
 const aboutUs: string = "Explore o vasto universo educacional oferecido pela plataforma que se destaca ao disponibilizar uma ampla gama de cursos para todos os perfis de aprendizes. Desde cursos de graduação e pós-graduação até opções flexíveis como cursos livres, preparatórios e técnicos. </br></br> Desfrute dos melhores descontos e escolha entre a conveniência do ensino a distância (EAD) ou a experiência presencial. "
-const userTestemonial: Ref<Array<CardTestemonial>> = ref([
+const userTestemonial: Ref<Array<ICardTestemonial>> = ref([
     {
         id: 1,
         src: imageTestemonial,

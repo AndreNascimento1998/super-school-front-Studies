@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import InputText from "@/components/InputText.vue";
+import InputText from "@/components/Input/InputText.vue";
 import {useCheckoutStore} from "@/stores/CheckoutStore.ts";
 
 const emits = defineEmits(

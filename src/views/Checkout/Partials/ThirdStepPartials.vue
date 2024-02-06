@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import InputFile from "@/components/InputFile.vue";
+import InputFile from "@/components/Input/InputFile.vue";
 import {useCheckoutStore} from "@/stores/CheckoutStore.ts";
 
 const checkoutStore = useCheckoutStore()

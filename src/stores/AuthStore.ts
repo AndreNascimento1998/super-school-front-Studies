@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import {Ref, ref} from 'vue'
-import {User} from "@/model/Interfaces/User.ts";
+import {IUser} from "@/model/Interfaces/IUser.ts";
 
 export const userAuthStore = defineStore('authStore', () => {
-    const user: Ref<User>  = ref(
+    const user: Ref<IUser>  = ref(
         {
             id: 0, name: '',
             lastName: '' ,
