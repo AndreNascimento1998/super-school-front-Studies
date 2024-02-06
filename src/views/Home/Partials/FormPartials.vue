@@ -53,15 +53,18 @@
             </div>
         </div>
     </div>
-    <div v-if="contentCourse" class="content mt-5 container-fluid">
-        {{ graduationTitle }}
+    <div v-if="contentCourse" class="content mt-5 container-fluid test ">
+        <div class="content__bg-title-course shake-animation py-2 py-md-4 w-100 rounded-4 text-center">
+            <span class="content__font-title">Curso em oferta! </span>
+        </div>
         <div class="container-fluid d-flex flex-column align-items-center ">
-            <span class="content__font-title">Cursos em oferta! </span>
-            {{ graduationText }}
             <CardPromotion
-                @click="nextPage"
+                @click-event="nextPage"
+                :type-graduation="graduationTitle"
                 :content="contentCourse"
+                :description="descriptionCardOfeer"
                 cursor-pointer
+                rounded
             />
         </div>
     </div>
@@ -112,6 +115,28 @@ const modalityOpt = computed(() => modalityStore.modalityOptions )
 const courseOtp = computed(() => {
     return courseStore?.courseOptions?.filter((item: any) => item.typeGraduationId === typeGraduation.value)
 })
+const descriptionCardOfeer: Array<Object> = [
+    {
+        id: 1,
+        text: 'Corpo docente qualificado;'
+    },
+    {
+        id: 2,
+        text: 'Infraestrutura moderna;'
+    },
+    {
+        id: 3,
+        text: 'Variedade de cursos;'
+    },
+    {
+        id: 4,
+        text: 'Apoio ao estudante;'
+    },
+    {
+        id: 5,
+        text: 'Flexibilidade de horários;'
+    }
+]
 let graduationText: object = ({
     "1": "Graduação",
     "2": "Pós-Graduação"
@@ -139,7 +164,8 @@ function cardOffers() {
     contentCourse.value = dataSelect.courses
 }
 
-function nextPage() {
+function nextPage(item) {
+    console.log(item)
     router.push({name: 'checkout'})
     assignValuesDataCourse()
 }
@@ -160,13 +186,33 @@ function assignValuesDataCourse() {
 
 <style scoped lang="scss">
 .content {
+    &__bg-title-course {
+        background-color: $primary-color;
+    }
+
     &__font-title {
-        color: $primary-color;
+        color: #FFF;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 400;
     }
 
     &__font-desc {
         font-size: 14px;
     }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 80% { transform: translateX(-5px); }
+    40%, 60% { transform: translateX(5px); }
+    50% { transform: translateX(0); }
+}
+
+.shake-animation {
+    opacity: 1;
+    animation: shake 2s ease-in-out infinite;
+    transition: opacity 0.5s ease;
 }
 
 .container-card {
