@@ -1,4 +1,4 @@
-export interface CardTestemonial {
+export interface ICardTestemonial {
     id: number,
     src: string,
     name: string,

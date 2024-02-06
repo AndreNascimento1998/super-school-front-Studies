@@ -1,4 +1,4 @@
-export interface CardOverview {
+export interface ICardOverview {
     id: number,
     src?: string,
     title: string,
