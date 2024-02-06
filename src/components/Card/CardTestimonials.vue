@@ -18,7 +18,7 @@
             <div style="font-weight: bold" class="card-title text-center">
                 {{ item.title }}
             </div>
-            <div class="card-body">
+            <div class="card-body ">
                 {{ item.desc }}
             </div>
         </div>
@@ -27,11 +27,11 @@
 
 <script setup lang="ts">
 import {StarIcon} from "@/assets/icons";
-import {CardTestemonial} from "@/model/Interfaces/CardTestemonial.ts";
+import {ICardTestemonial} from "@/model/Interfaces/ICardTestemonial.ts";
 
 const props = defineProps({
     content: {
-        type: Array<CardTestemonial>,
+        type: Array<ICardTestemonial>,
         default: [],
         required: true
     }

@@ -12,7 +12,7 @@
                 :key="item.value"
                 :value="item"
             >
-                {{ item.name }}
+                {{ item.name }}<span v-if="installments">x</span>
             </option>
         </select>
     </div>
@@ -41,6 +41,11 @@ const props = defineProps({
         default: {}
     },
     disabled: {
+        type: Boolean,
+        default: false,
+        required: false
+    },
+    installments: {
         type: Boolean,
         default: false,
         required: false

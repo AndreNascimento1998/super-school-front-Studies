@@ -49,7 +49,7 @@
 <script setup lang="ts">
 
 import {computed, ref} from "vue";
-import {CardOverview} from "@/model/Interfaces/CardOverview.ts";
+import {ICardOverview} from "@/model/Interfaces/ICardOverview.ts";
 import {useGlobalStore} from "@/stores/GlobalStore.ts";
 
 const globalStore = useGlobalStore()
@@ -61,7 +61,7 @@ const emits = defineEmits(
 
 const props = defineProps({
     content: {
-        type: Object<CardOverview>,
+        type: Object<ICardOverview>,
         default: [],
         required: true
     },
@@ -114,7 +114,7 @@ const priceDiscounted = computed(() => {
     return null
 })
 
-function handleClick (item: CardOverview) {
+function handleClick (item: ICardOverview) {
     selectedCard.value = item.id
     props.returnObject ? emits('click-event', item) : emits('click-event', item.id)
 
