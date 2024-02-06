@@ -1,7 +1,7 @@
 <template>
-    <div class="container-fluid ">
+    <div class="container-fluid mt-5">
         <div class="d-flex justify-content-around">
-            <div class="card container-card p-4">
+            <div class="card w-100 p-4">
                 <span class="font-default text-center mb-4">Qual é o seu interesse acadêmico?</span>
                 <div class="d-flex justify-content-around justify-content-md-center gap-md-5">
                     <div class="d-flex flex-column align-items-center gap-4">
@@ -72,14 +72,14 @@
 <script setup lang="ts">
 
 import {computed, onMounted, reactive, Ref, ref} from "vue";
-import InputSelect from "@/components/InputSelect.vue";
-import CardPromotion from "@/components/CardPromotion.vue";
-import {CardOverview} from "@/model/Interfaces/CardOverview.ts";
+import InputSelect from "@/components/Input/InputSelect.vue";
+import CardPromotion from "@/components/Card/CardPromotion.vue";
+import {ICardOverview} from "@/model/Interfaces/ICardOverview.ts";
 import {GraduationIcon, PostGraduationIcon} from "@/assets/icons";
 import graduation from "@/assets/images/trainingModalities/graduation.png";
 import postGraduation from "@/assets/images/trainingModalities/post-graduation.png";
 import {useModalityStore} from "@/stores/ModalityStore.ts";
-import {DataCourseSelection} from "@/model/Interfaces/DataCourseSelection.ts";
+import {IDataCourseSelection} from "@/model/Interfaces/IDataCourseSelection.ts";
 import {useCourseStore} from "@/stores/CourseStore.ts";
 import {useCourseDataStore} from "@/stores/CourseDataStore.ts";
 import router from "@/router";
@@ -87,7 +87,7 @@ import router from "@/router";
 const graduationCardSelect: Ref<number> = ref(1)
 const courseDataStore = useCourseDataStore()
 const disabledCoursesSelect: Ref<Boolean> = ref(true)
-const dataSelect: DataCourseSelection = reactive({
+const dataSelect: IDataCourseSelection = reactive({
         modalities: {
             id: null as unknown as number
         },
@@ -95,7 +95,7 @@ const dataSelect: DataCourseSelection = reactive({
 })
 const modalityStore = useModalityStore()
 const courseStore = useCourseStore()
-const modalities: Ref<Array<CardOverview>> = ref([
+const modalities: Ref<Array<ICardOverview>> = ref([
     {
         id: 1,
         src: graduation,
@@ -107,7 +107,7 @@ const modalities: Ref<Array<CardOverview>> = ref([
         title: "Pós-graduação"
     },
 ])
-let selectedGraduation: Ref<CardOverview> | Ref<number> = ref(1)
+let selectedGraduation: Ref<ICardOverview> | Ref<number> = ref(1)
 let contentCourse = ref()
 let typeGraduation: Ref<number> = ref(1)
 
@@ -151,7 +151,7 @@ async function fetchCoursesData () {
     await courseStore.fetchCourse(dataSelect.modalities.id)
     disabledCoursesSelect.value = false
 }
-function chooseGraduation(item: CardOverview) {
+function chooseGraduation(item: ICardOverview) {
     graduationCardSelect.value = item.id
     typeGraduation.value = item.id
     courseDataStore.overviewDataCourse.typeGraduation = item.title
@@ -213,16 +213,6 @@ function assignValuesDataCourse() {
     opacity: 1;
     animation: shake 2s ease-in-out infinite;
     transition: opacity 0.5s ease;
-}
-
-.container-card {
-    width: 100%;
-}
-
-@media (min-width: 769px) {
-    .container-card{
-        width: 75%;
-    }
 }
 
 .border-card-graduation {

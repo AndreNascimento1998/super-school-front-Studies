@@ -14,7 +14,10 @@ export const useCourseDataStore = defineStore('courseDataStore', () => {
         maxInstallments: null,
         discount: null,
         period: null,
-        price: null
+        price: null,
+        installmentChoose: {
+            name: 1
+        }
     })
 
     return {
