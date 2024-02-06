@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar py-4 top-bar-container">
+    <nav class="navbar sticky-md-top py-2 top-bar-container">
         <div class="container-fluid">
             <div>
                 <a class="navbar-brand" href="#">
@@ -28,11 +28,11 @@
 import { LogoIcon } from '@/assets/icons'
 import {userAuthStore} from "@/stores/AuthStore.ts";
 import {computed, ComputedRef} from "vue";
-import {User} from "@/model/Interfaces/User.ts";
+import {IUser} from "@/model/Interfaces/IUser.ts";
 
 const authStore = userAuthStore()
 
-const userLogged: ComputedRef<User> = computed(() => authStore.user)
+const userLogged: ComputedRef<IUser> = computed(() => authStore.user)
 
 function singIn() {
     authStore.authStore()
