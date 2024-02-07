@@ -1,25 +1,21 @@
 import { defineStore } from 'pinia'
-import {Ref, ref} from 'vue'
+import {reactive} from 'vue'
+import {IPersonalData} from "@/model/Interfaces/IPersonalData.ts";
 
 export const useCheckoutStore = defineStore('checkoutStore', () => {
-    const name: Ref<string> = ref('')
-    const email: Ref<string> = ref('')
-    const phone: Ref<string> = ref('')
-    const cep: Ref<string> = ref('')
-    const cpf: Ref<string> = ref('')
-    const dateBirth: Ref<string> = ref('')
-    const fileCnh: Ref<any> = ref(null)
-    const fileRg: Ref<any> = ref(null)
+    const payloadData: IPersonalData = reactive({
+        name: "",
+        email: "",
+        phone: "",
+        cep: "",
+        cpf: "",
+        dateBirth: null,
+        file: ""
+    })
+
 
     return {
-        name,
-        email,
-        phone,
-        cep,
-        cpf,
-        dateBirth,
-        fileCnh,
-        fileRg
+        payloadData
     }
 })
 

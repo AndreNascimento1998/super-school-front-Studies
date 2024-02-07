@@ -1,18 +1,19 @@
 <template>
     <div class="container">
-
         <div
             class="d-flex flex-column flex-md-row align-items-md-start align-items-center
              gap-2 d-md-flex justify-content-md-around mb-5 my-md-3">
             <div :class="{'d-none':stepSelected === 0}">
                 <CardList
+                    @click="() => stepSelected = 0"
+                    class="cursor-pointer"
                     title="Resumo da compra"
                     :content="resumeOrderContent"
                 />
             </div>
             <div
                 @click="() => stepSelected = 1"
-                v-if="checkoutStore.name"
+                v-if="checkoutStore.payloadData.name"
                 :class="{
                     'd-none':stepSelected === 0,
                     'display-ocult': moreLessText === 'Mais',
@@ -20,6 +21,7 @@
             >
                 <div>
                     <CardList
+                        class="cursor-pointer"
                         title="Primeira etapa "
                         :content="firstStepOrderContent"
                     />
@@ -27,7 +29,7 @@
             </div>
             <div
                 @click="() => stepSelected = 2"
-                v-if="checkoutStore.cep"
+                v-if="checkoutStore.payloadData.cep"
                 :class="{
                     'd-none':stepSelected === 0,
                     'display-ocult': moreLessText === 'Mais'
@@ -35,6 +37,7 @@
             >
                 <div>
                     <CardList
+                        class="cursor-pointer"
                         title="Segunda etapa"
                         :content="secondStepOrderContent"
                     />
@@ -137,15 +140,15 @@ const firstStepOrderContent = computed(() => {
         return [
             {
                 text: 'Nome',
-                desc: checkoutStore.name
+                desc: checkoutStore.payloadData.name
             },
             {
                 text: 'E-mail',
-                desc: checkoutStore.email
+                desc: checkoutStore.payloadData.email
             },
             {
                 text: 'Telefone',
-                desc: checkoutStore.phone
+                desc: checkoutStore.payloadData.phone
             }
         ]
 })
@@ -153,15 +156,15 @@ const secondStepOrderContent = computed(() => {
     return [
         {
             text: 'CEP',
-            desc: checkoutStore.cep
+            desc: checkoutStore.payloadData.cep
         },
         {
             text: 'CPF',
-            desc: checkoutStore.cpf
+            desc: checkoutStore.payloadData.cpf
         },
         {
             text: 'Data de Nascimento',
-            desc: checkoutStore.dateBirth
+            desc: checkoutStore.payloadData.dateBirth
         }
     ]
 })
@@ -178,7 +181,8 @@ function showDetails() {
     moreLessText.value = moreLessText.value === 'Mais' ? 'Menos' : 'Mais'
 }
 
-function nextSteps(step: number) {
+function nextSteps(step: number, item: object) {
+    checkoutStore.payloadData = {...checkoutStore.payloadData, ...item}
     stepSelected.value = step
 }
 
@@ -208,6 +212,10 @@ onUnmounted(() => {
         font-style: normal;
         font-weight: 500;
     }
+}
+
+.cursor-pointer{
+    cursor: pointer;
 }
 
 .animated-container {
