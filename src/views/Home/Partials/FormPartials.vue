@@ -113,7 +113,11 @@ let typeGraduation: Ref<number> = ref(1)
 
 const modalityOpt = computed(() => modalityStore.modalityOptions )
 const courseOtp = computed(() => {
-    return courseStore?.courseOptions?.filter((item: any) => item.typeGraduationId === typeGraduation.value)
+    const response = courseStore?.courseOptions?.filter((item: any) => item.typeGraduationId === typeGraduation.value)
+    if (response) {
+        dataSelect.courses = response[0]
+    }
+    return response
 })
 const descriptionCardOfeer: Array<Object> = [
     {
@@ -165,7 +169,6 @@ function cardOffers() {
 }
 
 function nextPage(item) {
-    console.log(item)
     router.push({name: 'checkout'})
     assignValuesDataCourse()
 }
