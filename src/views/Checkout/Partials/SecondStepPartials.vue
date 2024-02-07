@@ -6,13 +6,13 @@
         <form>
             <div class="row">
                 <div class="col-12 col-lg-12">
-                    <InputText v-model="checkoutStore.cep" label="CEP:" placeholder="Digite o CEP"/>
+                    <InputText v-model="personalData.cep" required label="CEP:" placeholder="Digite o CEP"/>
                 </div>
                 <div class="col-12 col-lg-6">
-                    <InputText v-model="checkoutStore.cpf" label="CPF:" placeholder="000.000.000-00"/>
+                    <InputText v-model="personalData.cpf" label="CPF:" required placeholder="000.000.000-00"/>
                 </div>
                 <div class="col-12 col-lg-6">
-                    <InputText v-model="checkoutStore.dateBirth" label="Data de nascimento:" placeholder="__/__/____"/>
+                    <InputText v-model="personalData.dateBirth" required label="Data de nascimento:" placeholder="__/__/____"/>
                 </div>
             </div>
         </form>
@@ -34,6 +34,9 @@
 <script setup lang="ts">
 import InputText from "@/components/Input/InputText.vue";
 import {useCheckoutStore} from "@/stores/CheckoutStore.ts";
+import {reactive} from "vue";
+import {required} from "@vuelidate/validators";
+import useVuelidate from "@vuelidate/core";
 
 const emits = defineEmits(
     ['click-event', 'click-return']
@@ -41,12 +44,29 @@ const emits = defineEmits(
 
 const checkoutStore = useCheckoutStore()
 
+const personalData = reactive({
+    cep: checkoutStore.payloadData.cep,
+    cpf: checkoutStore.payloadData.cpf,
+    dateBirth: checkoutStore.payloadData.dateBirth
+})
+
+const rules = {
+    cep: {required},
+    cpf: {required},
+    dateBirth: {required}
+}
+
+const v$ = useVuelidate(rules, personalData)
+
 function handleClickReturn() {
     emits('click-return', 1)
 }
 
-function handleClick() {
-    emits('click-event', 3)
+async function handleClick() {
+    const valid = await v$.value.$validate()
+    if (valid){
+        emits('click-event', 3, personalData)
+    }
 }
 </script>
 

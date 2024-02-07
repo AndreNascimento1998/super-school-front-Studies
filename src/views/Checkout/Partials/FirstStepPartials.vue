@@ -5,17 +5,17 @@
         </div>
         <form>
             <div class="row">
-                <div class="col-12 col-lg-12">
-                    <InputText v-model="checkoutStore.name" label="Nome:" placeholder="Digite seu nome"/>
+                <div class="col-12 col-lg-12 mb-3">
+                    <InputText v-model="personalData.name" :minCaracteres="3" label="Nome:" placeholder="Digite seu nome"/>
                 </div>
                 <div class="col-12 col-lg-6">
-                    <InputText v-model="checkoutStore.email" label="E-mail:" placeholder="Ex.: andre@ug.com"/>
+                    <InputText v-model="personalData.email" required label="E-mail:" placeholder="Ex.: andre@ug.com"/>
                 </div>
                 <div class="col-12 col-lg-6">
-                    <InputText v-model="checkoutStore.phone" label="Telefone:" placeholder="Digite seu telefone"/>
+                    <InputText v-model="personalData.phone" :minCaracteres="11" label="Telefone:" placeholder="Digite seu telefone"/>
                 </div>
             </div>
-            <div class="d-grid d-md-flex flex-md-row-reverse  gap-3">
+            <div class="d-grid d-md-flex flex-md-row-reverse mt-3 gap-3">
                 <div class="d-grid col-12 col-md-4 h-md-25 align-self-md-end">
                     <button @click="handleClick" class="btn btn-success" type="button">
                         Avançar
@@ -30,9 +30,14 @@
         </form>
     </div>
 </template>
-
+<!--checkoutStore.name-->
+<!--checkoutStore.email-->
+<!--checkoutStore.phone-->
 <script setup lang="ts">
 import InputText from "@/components/Input/InputText.vue";
+import useVuelidate from "@vuelidate/core";
+import { required } from "@vuelidate/validators";
+import {reactive} from "vue";
 import {useCheckoutStore} from "@/stores/CheckoutStore.ts";
 
 const emits = defineEmits(
@@ -41,12 +46,29 @@ const emits = defineEmits(
 
 const checkoutStore = useCheckoutStore()
 
+const personalData = reactive({
+    name: checkoutStore.payloadData.name,
+    email: checkoutStore.payloadData.email,
+    phone: checkoutStore.payloadData.phone
+})
+
+const rules = {
+    name: {required},
+    email: {required},
+    phone: {required}
+}
+
+const v$ = useVuelidate(rules, personalData)
+
 function handleClickReturn() {
     emits('click-return', 0)
 }
 
-function handleClick() {
-    emits('click-event', 2)
+async function handleClick() {
+    const valid = await v$.value.$validate()
+    if (valid){
+        emits('click-event', 2, personalData)
+    }
 }
 </script>
 
@@ -59,4 +81,5 @@ function handleClick() {
     line-height: 155.99%; /* 31.198px */
     letter-spacing: -0.6px;
 }
+
 </style>

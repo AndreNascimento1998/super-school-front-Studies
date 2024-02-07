@@ -7,13 +7,13 @@
             <div class="">
                 <InputFile
                     title="CNH"
-                    @file-changed="(item: File) => checkoutStore.fileCnh = item"
+                    @file-changed="(item: File) => personalData.file = item"
                 />
             </div>
             <div>
                 <InputFile
                     title="RG"
-                    @file-changed="(item: File) => checkoutStore.fileRg = item"
+                    @file-changed="(item: File) => personalData.file = item"
                 />
             </div>
         </div>
@@ -35,24 +35,34 @@
 <script setup lang="ts">
 import InputFile from "@/components/Input/InputFile.vue";
 import {useCheckoutStore} from "@/stores/CheckoutStore.ts";
-
-const checkoutStore = useCheckoutStore()
+import {reactive} from "vue";
+import {required} from "@vuelidate/validators";
+import useVuelidate from "@vuelidate/core";
 
 const emits = defineEmits(
     ['click-event', 'click-return']
 )
 
+const checkoutStore = useCheckoutStore()
+const personalData = reactive({
+    file: checkoutStore.payloadData.file
+})
+
+const rules = {
+    file: {required},
+}
+
+const v$ = useVuelidate(rules, personalData)
+
 function handleClickReturn() {
     emits('click-return', 2)
 }
 
-function registerMatriculation() {
-    if (checkoutStore.fileCnh) {
-        console.log(checkoutStore.fileCnh )
-    }else {
-        console.log('Cadastre-se')
+async function registerMatriculation() {
+    const valid = await v$.value.$validate()
+    if (valid){
+        emits('click-event', 3, personalData)
     }
-
 }
 </script>
 
