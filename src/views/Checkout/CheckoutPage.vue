@@ -198,13 +198,15 @@ function backSteps(step: number) {
 
 async function confirmRegistration(file: any) {
     const payload = mountPayload()
-    const test = await registrationStore.registrationStudant(file, payload)
-    console.log(test)
+    const response = await registrationStore.registrationStudant(file, payload)
+
+    if (response.data.success) {
+        await router.push({name: 'order-confirmation'})
+    }
 }
 
 function mountPayload() {
     const item: IPayload = {} as IPayload
-
     item.courseId = parseInt(courseDataStore.overviewDataCourse.id)
     item.name = checkoutStore.payloadData.name
     item.email = checkoutStore.payloadData.email
