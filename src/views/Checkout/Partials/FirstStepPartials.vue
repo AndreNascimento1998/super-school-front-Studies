@@ -6,13 +6,28 @@
         <form>
             <div class="row">
                 <div class="col-12 col-lg-12 mb-3">
-                    <InputText v-model="personalData.name" :minCaracteres="3" label="Nome:" placeholder="Digite seu nome"/>
+                    <InputText
+                        v-model="personalData.name"
+                        :minCaracteres="3"
+                        label="Nome:"
+                        placeholder="Digite seu nome"
+                    />
                 </div>
                 <div class="col-12 col-lg-6">
-                    <InputText v-model="personalData.email" required label="E-mail:" placeholder="Ex.: andre@ug.com"/>
+                    <InputText
+                        v-model="personalData.email"
+                        required label="E-mail:"
+                        placeholder="Ex.: andre@ug.com"
+                    />
                 </div>
                 <div class="col-12 col-lg-6">
-                    <InputText v-model="personalData.phone" :minCaracteres="11" label="Telefone:" placeholder="Digite seu telefone"/>
+                    <InputText
+                        v-model="personalData.phone"
+                        v-mask="['(##) ####-####', '(##) #####-####']"
+                        :minCaracteres="14"
+                        label="Telefone:"
+                        placeholder="Digite seu telefone"
+                    />
                 </div>
             </div>
             <div class="d-grid d-md-flex flex-md-row-reverse mt-3 gap-3">

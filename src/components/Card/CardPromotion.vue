@@ -37,9 +37,9 @@
                     </div>
                 </div>
             </div>
-            <div class="d-grid py-2 col-12 h-md-25 align-self-md-end">
+            <div v-if="props.buttonName" class="d-grid py-2 col-12 h-md-25 align-self-md-end">
                 <button @click="handleClick(content)" class="btn btn-success" type="button">
-                    ADQUIRA JÁ ESTE CURSO
+                    {{ props.buttonName }}
                 </button>
             </div>
         </div>
@@ -103,6 +103,11 @@ const props = defineProps({
     rounded: {
         type: Boolean,
         default: false,
+        required: false
+    },
+    buttonName: {
+        type: String,
+        default: '',
         required: false
     }
 })

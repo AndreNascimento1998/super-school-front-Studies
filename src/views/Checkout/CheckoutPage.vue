@@ -70,7 +70,7 @@
             <CourseDescriptionPartials @click-event="nextSteps"  v-if="stepSelected === 0"/>
             <FirstStepPartials @click-event="nextSteps" @click-return="backSteps" v-if="stepSelected === 1" />
             <SecondStepPartials @click-event="nextSteps" @click-return="backSteps" v-if="stepSelected === 2" />
-            <ThirdStepPartials @click-event="nextSteps" @click-return="backSteps" v-if="stepSelected === 3"/>
+            <ThirdStepPartials @click-event="confirmRegistration" @click-return="backSteps" v-if="stepSelected === 3"/>
         </div>
     </div>
 </template>
@@ -88,7 +88,13 @@ import {useCheckoutStore} from "@/stores/CheckoutStore.ts";
 import router from "@/router";
 import CardList from "@/components/Card/CardList.vue";
 import {useGlobalStore} from "@/stores/GlobalStore.ts";
+import {userAuthStore} from "@/stores/AuthStore.ts";
+import {IPayload} from "@/model/Interfaces/IPayload.ts";
+import {useRegistrationStore} from "@/stores/Registration.ts";
+import {FormatParser} from "@/helper/FormatParser.ts";
 
+const registrationStore = useRegistrationStore()
+const authStore = userAuthStore()
 const globalStore = useGlobalStore()
 const checkoutStore = useCheckoutStore()
 const courseDataStore = useCourseDataStore()
@@ -188,6 +194,26 @@ function nextSteps(step: number, item: object) {
 
 function backSteps(step: number) {
     stepSelected.value = step
+}
+
+async function confirmRegistration(file: any) {
+    const payload = mountPayload()
+    const test = await registrationStore.registrationStudant(file, payload)
+    console.log(test)
+}
+
+function mountPayload() {
+    const item: IPayload = {} as IPayload
+
+    item.courseId = parseInt(courseDataStore.overviewDataCourse.id)
+    item.name = checkoutStore.payloadData.name
+    item.email = checkoutStore.payloadData.email
+    item.phone = checkoutStore.payloadData.phone
+    item.cep = checkoutStore.payloadData.cep
+    item.cpf = checkoutStore.payloadData.cpf
+    item.dateBirth = FormatParser.parsePtBrDateToIsoDate(checkoutStore.payloadData.dateBirth)
+
+    return item
 }
 
 onUnmounted(() => {
