@@ -1,9 +1,9 @@
 <!-- src/components/Carousel.vue -->
 <template>
-    <Carousel :items-to-show="1">
-        <Slide v-for="{image} in props.slide" :key="image">
+    <Carousel  :items-to-show="1">
+        <Slide v-for="item in props.slide" :key="item?.image">
             <div>
-                <img :src="image">
+                <img :src="item?.image">
             </div>
         </Slide>
         <template #addons>

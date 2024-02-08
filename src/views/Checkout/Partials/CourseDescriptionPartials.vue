@@ -66,9 +66,8 @@
 
 <script setup lang="ts">
 import LineSeparator from "@/assets/icons/lineSeparator.vue";
-import LineDesktop from "@/assets/icons/lineDesktop.vue";
 import {useCourseDataStore} from "@/stores/CourseDataStore.ts";
-import {computed, onMounted} from "vue";
+import {computed} from "vue";
 import {useGlobalStore} from "@/stores/GlobalStore.ts";
 import router from "@/router";
 import InputSelect from "@/components/Input/InputSelect.vue";
