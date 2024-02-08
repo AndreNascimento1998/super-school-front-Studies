@@ -19,6 +19,11 @@ const routes: Array<RouteRecordRaw> = [
             },
         ]
     },
+    {
+        path: '/pedido-confirmado',
+        name: 'order-confirmation',
+        component: () => import('@/views/Congratulations/CongragulationsPage.vue'),
+    },
 ];
 
 const router = createRouter({
