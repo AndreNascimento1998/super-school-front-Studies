@@ -10,16 +10,16 @@
                 <div v-if="!userLogged.logged">
                     <button @click="singIn()" type="button" class="btn btn-outline-success">Entrar</button>
                 </div>
-                <div v-if="userLogged.logged">
-                    <span
-                        style="font-size: 18px;
-                        font-weight: bolder;
-                        font-style: italic"
-                    >
-                        {{ userLogged.name }}
-                        {{ userLogged.lastName }}
-                    </span>
-                </div>
+<!--                <div v-if="userLogged.logged">-->
+<!--                    <span-->
+<!--                        style="font-size: 18px;-->
+<!--                        font-weight: bolder;-->
+<!--                        font-style: italic"-->
+<!--                    >-->
+<!--                        {{ userLogged.name }}-->
+<!--                        {{ userLogged.lastName }}-->
+<!--                    </span>-->
+<!--                </div>-->
             </div>
         </div>
     </nav>

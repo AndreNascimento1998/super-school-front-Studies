@@ -4,7 +4,6 @@ import {IUser} from "@/model/Interfaces/IUser.ts";
 
 export const userAuthStore = defineStore('authStore', () => {
     const user: Ref<IUser>  = ref({
-            id: 25,
             name: 'André' ,
             lastName: 'Cardoso',
             email: 'andre.dlss@jk.com',
