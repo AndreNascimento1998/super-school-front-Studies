@@ -5,7 +5,7 @@
         </div>
         <form>
             <div class="row">
-                <div class="col-12 col-lg-12">
+                <div class="col-12 mb-3">
                     <InputText
                         v-model="personalData.cep"
                         v-mask="'#####-###'"
@@ -15,7 +15,7 @@
                         @blur-event="isCepValid"
                     />
                 </div>
-                <div class="col-12 col-lg-6">
+                <div class="col-12 mb-3 mb-md-0 col-lg-6">
                     <InputText
                         v-model="personalData.cpf"
                         label="CPF:"
