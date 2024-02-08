@@ -59,9 +59,10 @@
         </div>
         <div class="container-fluid d-flex flex-column align-items-center ">
             <CardPromotion
-                @click-event="nextPage"
+                @click-event="coursePaymentPage"
                 :type-graduation="graduationTitle"
                 :content="contentCourse"
+                button-name="ADQUIRA JÁ ESTE CURSO"
                 :description="descriptionCardOfeer"
                 cursor-pointer
                 rounded
@@ -168,7 +169,7 @@ function cardOffers() {
     contentCourse.value = dataSelect.courses
 }
 
-function nextPage(item) {
+function coursePaymentPage() {
     router.push({name: 'checkout'})
     assignValuesDataCourse()
 }
@@ -176,7 +177,6 @@ function nextPage(item) {
 function assignValuesDataCourse() {
     courseDataStore.overviewDataCourse.id = dataSelect.courses.id
     courseDataStore.overviewDataCourse.name = dataSelect.courses.name
-    courseDataStore.overviewDataCourse.idCourse = dataSelect.courses.idCourse
     courseDataStore.overviewDataCourse.discount = dataSelect.courses.discount
     courseDataStore.overviewDataCourse.title = dataSelect.courses.title
     courseDataStore.overviewDataCourse.period = dataSelect.courses.period

@@ -7,7 +7,6 @@ export const useCourseDataStore = defineStore('courseDataStore', () => {
         id: null,
         name: '',
         typeGraduation: "Graduação",
-        idCourse: null,
         title: '',
         turn: '',
         typeModality: '',
