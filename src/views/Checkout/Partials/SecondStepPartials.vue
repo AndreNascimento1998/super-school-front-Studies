@@ -6,13 +6,32 @@
         <form>
             <div class="row">
                 <div class="col-12 col-lg-12">
-                    <InputText v-model="personalData.cep" required label="CEP:" placeholder="Digite o CEP"/>
+                    <InputText
+                        v-model="personalData.cep"
+                        v-mask="'#####-###'"
+                        :minCaracteres="9"
+                        label="CEP:"
+                        placeholder="Digite o CEP"
+                        @blur-event="isCepValid"
+                    />
                 </div>
                 <div class="col-12 col-lg-6">
-                    <InputText v-model="personalData.cpf" label="CPF:" required placeholder="000.000.000-00"/>
+                    <InputText
+                        v-model="personalData.cpf"
+                        label="CPF:"
+                        :minCaracteres="14"
+                        v-mask="'###.###.###-##'"
+                        placeholder="000.000.000-00"
+                    />
                 </div>
                 <div class="col-12 col-lg-6">
-                    <InputText v-model="personalData.dateBirth" required label="Data de nascimento:" placeholder="__/__/____"/>
+                    <InputText
+                        v-model="personalData.dateBirth"
+                        v-mask="'##/##/####'"
+                        required
+                        label="Data de nascimento:"
+                        placeholder="__/__/____"
+                    />
                 </div>
             </div>
         </form>
@@ -34,9 +53,10 @@
 <script setup lang="ts">
 import InputText from "@/components/Input/InputText.vue";
 import {useCheckoutStore} from "@/stores/CheckoutStore.ts";
-import {reactive} from "vue";
+import {computed, reactive} from "vue";
 import {required} from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
+import CepHttp from "@/service/CepHttp.ts";
 
 const emits = defineEmits(
     ['click-event', 'click-return']
@@ -49,6 +69,7 @@ const personalData = reactive({
     cpf: checkoutStore.payloadData.cpf,
     dateBirth: checkoutStore.payloadData.dateBirth
 })
+
 
 const rules = {
     cep: {required},
@@ -68,6 +89,12 @@ async function handleClick() {
         emits('click-event', 3, personalData)
     }
 }
+
+async function isCepValid(cep: string) {
+    const res = await CepHttp.checkCep(cep)
+    console.log(res.data)
+}
+
 </script>
 
 <style scoped lang="scss">

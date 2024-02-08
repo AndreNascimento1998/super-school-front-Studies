@@ -61,7 +61,7 @@ function handleClickReturn() {
 async function registerMatriculation() {
     const valid = await v$.value.$validate()
     if (valid){
-        emits('click-event', 3, personalData)
+        emits('click-event', personalData.file)
     }
 }
 </script>

@@ -13,6 +13,7 @@
                 :placeholder="props.placeholder"
                 aria-label="Small"
                 aria-describedby="inputGroup-sizing-sm"
+                @blur="handleBlur"
             />
             <div v-if="isInvalid" class="invalid-feedback position-absolute error ">
                 {{ errorMessage }}
@@ -22,9 +23,9 @@
 </template>
 
 <script setup lang="ts">
-import {ref, watch, defineProps, defineEmits, computed} from 'vue';
+import {ref, watch, computed} from 'vue';
 
-const emits = defineEmits(['update:modelValue']);
+const emits = defineEmits(['update:modelValue', 'blur-event']);
 
 const props = defineProps({
     label: {
@@ -63,6 +64,10 @@ watch(
         validate();
     }
 );
+
+function handleBlur() {
+    emits('blur-event', value.value);
+}
 
 function handleInput() {
     validate();
