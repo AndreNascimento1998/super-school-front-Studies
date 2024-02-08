@@ -5,7 +5,7 @@
         </div>
         <form>
             <div class="row">
-                <div class="col-12 col-lg-12 mb-3">
+                <div class="col-12 col-lg-12">
                     <InputText
                         v-model="personalData.name"
                         :minCaracteres="3"

@@ -35,7 +35,7 @@
                 </div>
             </div>
         </form>
-        <div class="d-grid d-md-flex flex-md-row-reverse gap-3">
+        <div class="d-grid d-md-flex flex-md-row-reverse mt-3 gap-3">
             <div class="d-grid col-12 col-md-4 h-md-25 align-self-md-end">
                 <button @click="handleClick" class="btn btn-success" type="button">
                     Avançar

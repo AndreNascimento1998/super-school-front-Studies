@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-5">
             <div class="col-12 col-md-4">
                <InputSelect
                    v-model="dataSelect.modalities"
@@ -77,7 +77,7 @@ import InputSelect from "@/components/Input/InputSelect.vue";
 import CardPromotion from "@/components/Card/CardPromotion.vue";
 import {ICardOverview} from "@/model/Interfaces/ICardOverview.ts";
 import {GraduationIcon, PostGraduationIcon} from "@/assets/icons";
-import graduation from "@/assets/images/trainingModalities/graduation.png";
+import graduation  from "@/assets/images/trainingModalities/graduation.png";
 import postGraduation from "@/assets/images/trainingModalities/post-graduation.png";
 import {useModalityStore} from "@/stores/ModalityStore.ts";
 import {IDataCourseSelection} from "@/model/Interfaces/IDataCourseSelection.ts";
@@ -164,9 +164,10 @@ function chooseGraduation(item: ICardOverview) {
 }
 
 function cardOffers() {
-    graduationTitle.value = graduationText[dataSelect.courses.typeGraduationId as keyof typeof graduationText];
-
-    contentCourse.value = dataSelect.courses
+    if (dataSelect.modalities.id){
+        graduationTitle.value = graduationText[dataSelect.courses.typeGraduationId as keyof typeof graduationText];
+        contentCourse.value = dataSelect.courses
+    }
 }
 
 function coursePaymentPage() {

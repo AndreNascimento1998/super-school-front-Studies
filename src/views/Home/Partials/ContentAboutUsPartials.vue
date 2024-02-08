@@ -40,7 +40,7 @@
                 </div>
             </div>
         </div>
-        <div class="pt-4 text-center">
+        <div class="pt-4 text-justify">
             <span class="content__title-testemonial">DEPOIMENTOS DOS ALUNOS</span>
             <CardTestimonials :content="userTestemonial" />
         </div>
@@ -89,7 +89,7 @@ const userTestemonial: Ref<Array<ICardTestemonial>> = ref([
 <style scoped lang="scss">
 .content {
     &__title-about-us {
-        font-size: 20px;
+        font-size: 24px;
         font-weight: bolder;
         color: $primary-color;
     }
