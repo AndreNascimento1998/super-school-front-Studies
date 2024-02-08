@@ -1,7 +1,7 @@
 <template>
     <div class="card" style="width: 18rem;">
         <div v-if="props.title" class="card-header">
-            Resumo da compra
+            {{ props.title }}
         </div>
         <ul v-for="item in props.content" :key="item.text" class="list-group list-group-flush">
             <li class="list-group-item ">{{ item.text }}: {{ item.desc }}</li>
