@@ -3,7 +3,7 @@
         <div class="my-4">
             <span class="title">3° Etapa Cadastro</span>
         </div>
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center gap-5">
             <div class="">
                 <InputFile
                     title="CNH"

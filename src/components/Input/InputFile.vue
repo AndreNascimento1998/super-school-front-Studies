@@ -6,7 +6,7 @@
         <div>
             <OpenFileIcon class="cursor-pointer" @click="openFileInput" />
         </div>
-        <div>
+        <div style="font-size: 14px">
             {{ selectedFileName }}
         </div>
 

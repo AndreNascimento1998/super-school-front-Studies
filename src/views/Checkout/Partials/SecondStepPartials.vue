@@ -73,7 +73,7 @@ const emits = defineEmits(
 
 const checkoutStore = useCheckoutStore()
 
-let validCep = ref()
+let validCep = ref(checkoutStore.payloadData.cep ? 'VÁLIDO' : "INVÁLIDO")
 
 const personalData = reactive({
     cep: checkoutStore.payloadData.cep,
