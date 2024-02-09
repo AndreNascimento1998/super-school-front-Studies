@@ -6,6 +6,15 @@
         <form>
             <div class="row">
                 <div class="col-12 mb-3">
+                    <span class="font-cep-valid">
+                        VALINDO CEP:
+                        <span :class="{'invalid-cep': validCep === 'INVÁLIDO'}">
+                            {{ validCep }}
+                        </span>
+                        <span style="color: black">
+                            (TIRE O FOCO DO CAMPO PARA TESTAR)
+                        </span>
+                    </span>
                     <InputText
                         v-model="personalData.cep"
                         v-mask="'#####-###'"
@@ -53,8 +62,8 @@
 <script setup lang="ts">
 import InputText from "@/components/Input/InputText.vue";
 import {useCheckoutStore} from "@/stores/CheckoutStore.ts";
-import {computed, reactive} from "vue";
-import {required} from "@vuelidate/validators";
+import {reactive, ref} from "vue";
+import {minLength, required} from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
 import CepHttp from "@/service/CepHttp.ts";
 
@@ -64,6 +73,8 @@ const emits = defineEmits(
 
 const checkoutStore = useCheckoutStore()
 
+let validCep = ref()
+
 const personalData = reactive({
     cep: checkoutStore.payloadData.cep,
     cpf: checkoutStore.payloadData.cpf,
@@ -72,9 +83,9 @@ const personalData = reactive({
 
 
 const rules = {
-    cep: {required},
-    cpf: {required},
-    dateBirth: {required}
+    cep: {required ,minLength: minLength(9)},
+    cpf: {required ,minLength: minLength(14)},
+    dateBirth: {required ,minLength: minLength(10)}
 }
 
 const v$ = useVuelidate(rules, personalData)
@@ -83,21 +94,35 @@ function handleClickReturn() {
     emits('click-return', 1)
 }
 
-async function handleClick() {
-    const valid = await v$.value.$validate()
-    if (valid){
-        emits('click-event', 3, personalData)
+async function isCepValid(cep: string) {
+    validCep.value = 'INVÁLIDO'
+    const response = await CepHttp.checkCep(cep)
+    if(response?.data.erro){
+        validCep.value = 'INVÁLIDO'
+    }else {
+        validCep.value = 'VÁLIDO'
     }
 }
 
-async function isCepValid(cep: string) {
-    const res = await CepHttp.checkCep(cep)
-    console.log(res.data)
+async function handleClick() {
+    const valid = await v$.value.$validate()
+    if (valid && validCep.value === 'VÁLIDO'){
+        emits('click-event', 3, personalData)
+    }
 }
 
 </script>
 
 <style scoped lang="scss">
+.font-cep-valid {
+    font-size: 12px;
+    color: $primary-color;
+    font-style: italic;
+}
+.invalid-cep {
+    color: red;
+}
+
 .title {
     color: #404040;
     font-size: 20px;

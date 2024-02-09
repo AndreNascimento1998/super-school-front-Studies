@@ -97,7 +97,7 @@ const errorMessage = computed(() => {
 
 <style scoped lang="scss">
 .error {
-    top: 32px;
+    top: 36px;
 }
 
 .is-invalid {

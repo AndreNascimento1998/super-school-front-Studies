@@ -16,7 +16,8 @@
                 <div class="col-12 mb-3 mb-md-0  col-lg-6">
                     <InputText
                         v-model="personalData.email"
-                        required label="E-mail:"
+                        required
+                        label="E-mail:"
                         placeholder="Ex.: andre@ug.com"
                     />
                 </div>
@@ -51,7 +52,7 @@
 <script setup lang="ts">
 import InputText from "@/components/Input/InputText.vue";
 import useVuelidate from "@vuelidate/core";
-import { required } from "@vuelidate/validators";
+import {minLength, required} from "@vuelidate/validators";
 import {reactive} from "vue";
 import {useCheckoutStore} from "@/stores/CheckoutStore.ts";
 
@@ -68,9 +69,9 @@ const personalData = reactive({
 })
 
 const rules = {
-    name: {required},
-    email: {required},
-    phone: {required}
+    name: {required, minLength: minLength(3)},
+    email: {minLength: minLength(3)},
+    phone: {required, minLength: minLength(14)},
 }
 
 const v$ = useVuelidate(rules, personalData)
